@@ -22,3 +22,4 @@ class Home extends \Core\Controller
         View::renderTemplate('Home/index.html');
     }
 }
+
