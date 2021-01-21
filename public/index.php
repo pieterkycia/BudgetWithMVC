@@ -19,6 +19,10 @@ error_reporting(E_ALL);
 set_error_handler('Core\Error::errorHandler');
 set_exception_handler('Core\Error::exceptionHandler');
 
+/**
+ * Sessions
+ */
+session_start();
 
 /**
  * Routing
@@ -27,6 +31,8 @@ $router = new Core\Router();
 
 // Add the routes
 $router->add('', ['controller' => 'Signup', 'action' => 'new']);
+$router->add('Signup', ['controller' => 'Signup', 'action' => 'new']);
+$router->add('Login', ['controller' => 'Login', 'action' => 'new']);
 $router->add('{controller}/{action}');
     
 $router->dispatch($_SERVER['QUERY_STRING']);

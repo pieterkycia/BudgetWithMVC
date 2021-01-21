@@ -115,6 +115,28 @@ class User extends \Core\Model
 	}
 	
 	/**
+	 * Find a user model by ID
+	 *
+	 * @param string $id. The user ID
+	 *
+	 * @return mixed. User object if found, false otherwise
+	 */
+	public static function findByID($id)
+	{
+		$sql = 'SELECT * FROM users WHERE id = :id';
+		
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		
+		$stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+		
+		$stmt->execute();
+		
+		return $stmt->fetch();
+	}
+	
+	/**
      * Save the user model with the current property values
      *
      * @return void
@@ -126,10 +148,6 @@ class User extends \Core\Model
 		if (empty($this->errors)) {
 			$password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 			
-			//$token = new Token();
-			//$hashed_token = $token->getHash();
-			//$this->activation_token = $token->getValue();
-			
 			$sql = 'INSERT INTO users (username, password, email)
 					VALUES (:username, :password_hash, :email)';
 					
@@ -139,8 +157,6 @@ class User extends \Core\Model
 			$stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
 			$stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
 			$stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-			
-			//$stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
 			
 			return $stmt->execute();
 		}
@@ -159,8 +175,8 @@ class User extends \Core\Model
 	{
 		$user = static::findByEmail($email);
 		
-		if ($user && $user->is_active) {
-			if (password_verify($password, $user->password_hash)) {
+		if ($user) {
+			if (password_verify($password, $user->password)) {
 				return $user;
 			}
 		}
