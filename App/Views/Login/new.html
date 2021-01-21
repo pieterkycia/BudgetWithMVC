@@ -21,6 +21,12 @@
 							<label for="password" class="sr-only">Password</label>
 							<input type="password" id="password" name="password" class="form-control" placeholder="Hasło"/>
 						</div>
+						
+						{% if error_login %}
+							<div class="error">
+								{{ error_login }}
+							</div>
+						{% endif %}
 							
 						<div class="text-center mt-4">
 							<input type="submit" class="btn btn-success" value="Zaloguj się"/>

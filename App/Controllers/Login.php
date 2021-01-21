@@ -19,7 +19,11 @@ class Login extends \Core\Controller
 	 */
 	public function newAction()
 	{
-		View::renderTemplate('Login/new.html');
+		if (isset($_SESSION['user_id'])) {
+			View::renderTemplate('Profile/menu.html');
+		} else {
+			View::renderTemplate('Login/new.html');
+		}
 	}
 	
 	/**
@@ -42,7 +46,8 @@ class Login extends \Core\Controller
 			//Flash::addMessage('Login unsuccessful, please try again', Flash::WARNING);
 			
 			View::renderTemplate('Login/new.html', [
-			'email' => $_POST['email']
+			'email' => $_POST['email'],
+			'error_login' => 'Invalid email or password!'
 			]);
 		}
 	}

@@ -17,7 +17,11 @@ class Signup extends \Core\Controller
      */
     public function newAction()
     {
-        View::renderTemplate('Signup/new.html');
+		if (isset($_SESSION['user_id'])) {
+			View::renderTemplate('Profile/menu.html');
+		} else {
+			View::renderTemplate('Signup/new.html');
+		}
     }
 	
 	/*
