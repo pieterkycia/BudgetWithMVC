@@ -42,36 +42,36 @@ class User extends \Core\Model
 	{
 		// Name
 		if ($this->username == '') {
-			$this->errors['username'] = 'Name is required';
+			$this->errors['error_username'] = 'Name is required!';
 		}
 		
 		// Email address
 		if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
-			$this->errors['email'] = 'Invalid email'; 
+			$this->errors['error_email'] = 'Invalid email!'; 
 		}
 		
 		if (static::emailExists($this->email)) {
-			$this->errors['email'] = 'Email already taken'; 
+			$this->errors['error_email'] = 'Email already taken!'; 
 		}
 		
 		// Password
 		if (isset($this->password)) {
 			if (strlen($this->password) < 6) {
-				$this->errors['password'] = 'Please enter at least 6 characters for the password';
+				$this->errors['error_password'] = 'Please enter at least 6 characters for the password!';
 			}
 			
 			if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
-				$this->errors['password'] = 'Passwords needs at least one letter';
+				$this->errors['error_password'] = 'Password needs at least one letter!';
 			}
 			
 			if (preg_match('/.*\d+.*/i', $this->password) == 0) {
-				$this->errors['password'] = 'Passwords needs at least one number';
+				$this->errors['error_password'] = 'Password needs at least one number!';
 			}	
 		}
 		
 		//Password confirmation
 		if ($this->password != $this->repeat_password) {
-			$this->errors['repeat_password'] = 'Passwords must be the same';
+			$this->errors['error_repeat_password'] = 'Passwords must be the same!';
 		}
 	}
 	

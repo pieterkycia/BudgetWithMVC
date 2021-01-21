@@ -24,8 +24,8 @@
 							<input type="text" id="username" name="username" class="form-control" placeholder="Imię" value="{{ user.username }}" />
 						</div>
 						<div class="error">
-							{% if user.errors['username'] %}
-								{{ user.errors['username'] }}
+							{% if user.errors['error_username'] %}
+								{{ user.errors['error_username'] }}
 							{% endif %}
 						</div>
 						
@@ -34,8 +34,8 @@
 							<input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="{{ user.email }}" />
 						</div>
 						<div class="error">
-							{% if user.errors['email'] %}
-								{{ user.errors['email'] }}
+							{% if user.errors['error_email'] %}
+								{{ user.errors['error_email'] }}
 							{% endif %}
 						</div>
 						
@@ -44,8 +44,8 @@
 							<input type="password" id="password" name="password" class="form-control" placeholder="Hasło"/>
 						</div>
 						<div class="error">
-							{% if user.errors['password'] %}
-								{{ user.errors['password'] }}
+							{% if user.errors['error_password'] %}
+								{{ user.errors['error_password'] }}
 							{% endif %}
 						</div>
 							
@@ -54,8 +54,8 @@
 							<input type="password" id="repeat_password" name="repeat_password" class="form-control" placeholder="Powtórz hasło"/>
 						</div>
 						<div class="error">
-							{% if user.errors['repeat_password'] %}
-								{{ user.errors['repeat_password'] }}
+							{% if user.errors['error_repeat_password'] %}
+								{{ user.errors['error_repeat_password'] }}
 							{% endif %}
 						</div>
 						
