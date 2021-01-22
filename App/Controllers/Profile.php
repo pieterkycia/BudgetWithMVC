@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use \App\Date;
 
 /**
  * Profile controller
@@ -32,5 +33,18 @@ class Profile extends Authenticated
 		View::renderTemplate('Profile/menu.html', [
 			'user' => $this->user
 		]);
+	}
+	
+	public function showDateAction()
+	{
+		$date = '2021-02-9';
+		
+		if (Date::validateDate($date)) {
+			echo $date;
+			echo '<h1>correct</h1>';
+		} else {
+			echo $date;
+			echo '<h1>incorrect</h1>';
+		}
 	}
 }
