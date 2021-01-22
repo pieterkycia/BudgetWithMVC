@@ -68,7 +68,8 @@ class Date
 	 */
 	public static function getFirstDayOfCurrentMonth()
 	{
-		$date = date('Y-m-01', time());
+		$dateInSeconds = mktime(0, 0, 0, date('m'), 1, date('Y'));
+		$date = date('Y-m-01', $dateInSeconds);
 		return $date;
 	}
 	
@@ -79,9 +80,8 @@ class Date
 	 */
 	public static function getLastDayOfCurrentMonth()
 	{
-		$firstDayNextMonthInSeconds = mktime(0, 0, 0, date('m')+1, 1, date('Y'));
-		$oneDayInSeconds = 86400;
-		$date = date('Y-m-d', $firstDayNextMonthInSeconds - $oneDayInSeconds);
+		$dateInSeconds = mktime(0, 0, 0, date('m')+1, 0, date('Y'));
+		$date = date('Y-m-d', $dateInSeconds);
 		return $date;
 	}
 	
@@ -104,9 +104,8 @@ class Date
 	 */
 	public static function getLastDayOfPreviousMonth()
 	{
-		$firstDayNextMonthInSeconds = mktime(0, 0, 0, date('m'), 1, date('Y'));
-		$oneDayInSeconds = 86400;
-		$date = date('Y-m-d', $firstDayNextMonthInSeconds - $oneDayInSeconds);
+		$dateInSeconds = mktime(0, 0, 0, date('m'), 0, date('Y'));
+		$date = date('Y-m-d', $dateInSeconds);
 		return $date;
 	}
 	

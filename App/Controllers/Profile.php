@@ -34,32 +34,4 @@ class Profile extends Authenticated
 			'user' => $this->user
 		]);
 	}
-	
-	public function showDateAction()
-	{
-		$date = '2021-02-9';
-		
-		if (Date::validateDate($date)) {
-			echo $date;
-			echo '<h1>correct</h1>';
-		} else {
-			echo $date;
-			echo '<h1>incorrect</h1>';
-		}
-		/*
-		$lastmonth = mktime(0, 0, 0, date("m")+1, 1,   date("Y"));
-		$lastDay = $lastmonth - 86400;
-		$last = date('Y-m-01', time());
-		echo date('Y-m-d',$lastDay).'<br>'; // rok(2 ostatnie cyfry)-miesiąc-dzień
-		echo time().'<br/>';
-		var_dump( date('Y-m-d', time()));
-		echo '<br/>';
-		echo Date::getFirstDayOfCurrentMonth().'<br/>';
-		echo Date::getLastDayOfCurrentMonth().'<br/>';
-		echo Date::getFirstDayOfPreviousMonth().'<br/>';
-		echo Date::getLastDayOfPreviousMonth().'<br/>';
-		echo Date::getFirstDayOfPreviousYear().'<br/>';
-		echo Date::getLastDayOfPreviousYear().'<br/>';
-		*/
-	}
 }
