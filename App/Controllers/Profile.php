@@ -6,6 +6,7 @@ use \Core\View;
 use \App\Auth;
 use \App\Flash;
 use \App\Date;
+use \App\Models\Income;
 
 /**
  * Profile controller
@@ -32,6 +33,14 @@ class Profile extends Authenticated
 	{
 		View::renderTemplate('Profile/menu.html', [
 			'user' => $this->user
+		]);
+	}
+	
+	public function addIncomeAction()
+	{
+		View::renderTemplate('Profile/addIncome.html', [
+			'date' => date('Y-m-d'),
+			'incomes' => Income::getIncomes()
 		]);
 	}
 }
