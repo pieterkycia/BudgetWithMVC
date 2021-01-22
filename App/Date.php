@@ -60,4 +60,78 @@ class Date
 			return false;
 		}
 	}
+	
+	/**
+	 * Get first day of current month
+	 *
+	 * @return string $date. Date with first day of current month
+	 */
+	public static function getFirstDayOfCurrentMonth()
+	{
+		$date = date('Y-m-01', time());
+		return $date;
+	}
+	
+	/**
+	 * Get last day of current month
+	 *
+	 * @return string $date. Date with last day of current month
+	 */
+	public static function getLastDayOfCurrentMonth()
+	{
+		$firstDayNextMonthInSeconds = mktime(0, 0, 0, date('m')+1, 1, date('Y'));
+		$oneDayInSeconds = 86400;
+		$date = date('Y-m-d', $firstDayNextMonthInSeconds - $oneDayInSeconds);
+		return $date;
+	}
+	
+	/**
+	 * Get first day of previous month
+	 *
+	 * @return string $date. Date with first day of previous month
+	 */
+	public static function getFirstDayOfPreviousMonth()
+	{
+		$dateInSeconds = mktime(0, 0, 0, date('m')-1, 1, date('Y'));
+		$date = date('Y-m-d', $dateInSeconds);
+		return $date;
+	}
+	
+	/**
+	 * Get last day of previous month
+	 *
+	 * @return string $date. Date with last day of previous month
+	 */
+	public static function getLastDayOfPreviousMonth()
+	{
+		$firstDayNextMonthInSeconds = mktime(0, 0, 0, date('m'), 1, date('Y'));
+		$oneDayInSeconds = 86400;
+		$date = date('Y-m-d', $firstDayNextMonthInSeconds - $oneDayInSeconds);
+		return $date;
+	}
+	
+	/**
+	 * Get first day of previous year
+	 *
+	 * @return string $date. Date with first day of previous year
+	 */
+	public static function getFirstDayOfPreviousYear()
+	{
+		$dateInSeconds = mktime(0, 0, 0, 1, 1, date('Y')-1);
+		$date = date('Y-m-d', $dateInSeconds);
+		return $date;
+	}
+	
+	/**
+	 * Get last day of previous year
+	 *
+	 * @return string $date. Date with last day of previous year
+	 */
+	public static function getLastDayOfPreviousYear()
+	{
+		$dateInSeconds = mktime(0, 0, 0, 12, 31, date('Y')-1);
+		$date = date('Y-m-d', $dateInSeconds);
+		return $date;
+	}
+	
 }
