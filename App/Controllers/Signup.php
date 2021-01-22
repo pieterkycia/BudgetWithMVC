@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
+use \App\Flash;
 
 /**
  * Signup controller
@@ -18,9 +19,9 @@ class Signup extends \Core\Controller
     public function newAction()
     {
 		if (isset($_SESSION['user_id'])) {
-			View::renderTemplate('Profile/menu.html');
+			$this->redirect('/profile/menu');
 		} else {
-			View::renderTemplate('Signup/new.html');
+			View::renderTemplate('signup/new.html');
 		}
     }
 	
@@ -36,6 +37,8 @@ class Signup extends \Core\Controller
 		if ($user->save()) {
 			$this->redirect('/signup/success');
 		} else {
+			Flash::addMessage('Signup unsuccessful, please try again', Flash::WARNING);
+			
 			View::renderTemplate('Signup/new.html', [
 				'user' => $user
 			]);
@@ -48,6 +51,8 @@ class Signup extends \Core\Controller
 	 * @return void
 	 */
 	public function successAction() {
-		View::renderTemplate('Signup/new.html');
+		Flash::addMessage('Signup successful');
+		
+		View::renderTemplate('Login/new.html');
 	}
 }

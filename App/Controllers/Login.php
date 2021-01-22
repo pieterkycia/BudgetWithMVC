@@ -20,9 +20,9 @@ class Login extends \Core\Controller
 	public function newAction()
 	{
 		if (isset($_SESSION['user_id'])) {
-			View::renderTemplate('Profile/menu.html');
+			$this->redirect('/profile/menu');
 		} else {
-			View::renderTemplate('Login/new.html');
+			View::renderTemplate('login/new.html');
 		}
 	}
 	
@@ -39,13 +39,13 @@ class Login extends \Core\Controller
 			
 			Auth::login($user);
 			
-			//Flash::addMessage('Login successful');
+			Flash::addMessage('Login successful');
 			
 			$this->redirect(Auth::getReturnToPage());
 		} else {
-			//Flash::addMessage('Login unsuccessful, please try again', Flash::WARNING);
+			Flash::addMessage('Login unsuccessful, please try again', Flash::WARNING);
 			
-			View::renderTemplate('Login/new.html', [
+			View::renderTemplate('login/new.html', [
 			'email' => $_POST['email'],
 			'error_login' => 'Invalid email or password!'
 			]);
@@ -73,7 +73,7 @@ class Login extends \Core\Controller
 	 */
 	public function showLogoutMessageAction()
 	{
-		//Flash::addMessage('Logout successful');
+		Flash::addMessage('Logout successful!');
 		
 		$this->redirect('/');
 	}
