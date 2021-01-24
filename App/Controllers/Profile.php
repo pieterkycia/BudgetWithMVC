@@ -36,11 +36,30 @@ class Profile extends Authenticated
 		]);
 	}
 	
-	public function addIncomeAction()
+	public function incomeFormAction()
 	{
-		View::renderTemplate('Profile/addIncome.html', [
+		View::renderTemplate('Income/addIncome.html', [
 			'date' => date('Y-m-d'),
 			'incomes' => Income::getIncomes()
 		]);
+	}
+	
+	public function addIncomeAction()
+	{
+		$income = new Income($_POST);
+		
+		if ($income->addIncome()) {
+			Flash::addMessage('Add income successful!');
+			
+			$this->redirect('/profile/incomeForm');
+		} else {
+			Flash::addMessage('Add income unsuccessful, please try again!', Flash::WARNING);
+			
+			View::renderTemplate('Income/addIncome.html', [
+			'date' => $income->date,
+			'incomes' => Income::getIncomes(),
+			'income' => $income
+		]);
+		}
 	}
 }
