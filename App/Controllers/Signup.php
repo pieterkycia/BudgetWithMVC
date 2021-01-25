@@ -35,6 +35,9 @@ class Signup extends \Core\Controller
 		$user = new User($_POST);
 		
 		if ($user->save()) {
+			$user = User::findByEmail($user->email);
+			$user->addFullDefaultCategoriesToUser();
+			
 			$this->redirect('/signup/success');
 		} else {
 			Flash::addMessage('Signup unsuccessful, please try again', Flash::WARNING);

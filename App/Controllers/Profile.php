@@ -7,6 +7,7 @@ use \App\Auth;
 use \App\Flash;
 use \App\Date;
 use \App\Models\Income;
+use \App\Models\Expense;
 
 /**
  * Profile controller
@@ -59,6 +60,35 @@ class Profile extends Authenticated
 			'date' => $income->date,
 			'incomes' => Income::getIncomes(),
 			'income' => $income
+		]);
+		}
+	}
+	
+	public function expenseFormAction()
+	{
+		View::renderTemplate('Expense/addExpense.html', [
+			'date' => date('Y-m-d'),
+			'payments' => Expense::getPayments(),
+			'expenses' => Expense::getExpenses()
+		]);
+	}
+	
+	public function addExpenseAction()
+	{
+		$expense = new Expense($_POST);
+		
+		if ($expense->addExpense()) {
+			Flash::addMessage('Add expense successful!');
+			
+			$this->redirect('/profile/expenseForm');
+		} else {
+			Flash::addMessage('Add expense unsuccessful, please try again!', Flash::WARNING);
+			
+			View::renderTemplate('Expense/addExpense.html', [
+			'date' => $expense->date,
+			'payments' => Expense::getPayments(),
+			'expenses' => Expense::getExpenses(),
+			'expense' => $expense
 		]);
 		}
 	}
