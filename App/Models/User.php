@@ -5,7 +5,7 @@ namespace App\Models;
 use PDO;
 
 /**
- * Example user model
+ * User model
  *
  * PHP version 7.0
  */

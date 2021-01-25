@@ -1,0 +1,83 @@
+{% extends "base2.html" %}
+
+{% block title %}Add Income{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="col-md-10 mx-auto">
+			<div class="shadow-lg app-description p-3">
+				<h2 class="pl-3">Dodawanie przychodu</h2>
+				
+				<form method="post" action="/profile/addIncome">
+	
+					<div class="row pl-3 mt-3">
+						<div class="pl-3">
+							<label for="amount">Kwota:</label>
+						</div>
+						<div class="col-8 col-lg-5">
+							<input type="text" id="amount" name="amount" class="form-control" step="0.01" 
+							value="{{ income.amount }}"/>
+						</div>
+					</div>
+					
+					{% if income.errors['error_amount'] %}
+						<div class="error pl-3">
+							{{ income.errors['error_amount'] }}
+						</div>
+					{% endif %}
+						
+					<div class="row pl-3 mt-3">
+						<div class="pl-3">
+							<label for="date">Data:</label>
+						</div>	
+						<div class="col-8 col-lg-5">
+							<input type="date" id="date" name="date" class="form-control" value="{{ date }}"/>
+						</div>
+					</div>
+					
+					{% if income.errors['error_date'] %}
+						<div class="error pl-3">
+							{{ income.errors['error_date'] }}
+						</div>
+					{% endif %}
+								
+					<div class="px-3 mt-3">
+						<fieldset class="col shadow-xl rounded-xl">
+							<legend class="w-auto p-2"> Kategoria </legend>
+							
+							{% for inc in incomes %}
+								<div>
+									<label>
+										<input type="radio" name="category" value="{{ inc['id'] }}"
+										{% if income.category == inc['id'] %} checked {% endif %} />
+										{{ inc['name'] }}
+									</label>
+								</div>
+							{% endfor %}
+							
+							{% if income.errors['error_radio'] %}
+								<div class="error">
+									{{ income.errors['error_radio'] }}
+								</div>
+							{% endif %}
+							
+							<div class="mt-3">
+								<label for="comment">Komentarz (opcjonalnie):</label>
+							</div> 
+							<textarea class="form-control col-lg-11 rounded-xl mb-3" id="comment" name="comment" rows="5">{{ income.comment }}</textarea>
+						</fieldset>
+					</div>
+						
+					<div class="pl-3 mt-3">
+						<input type="submit" class="btn btn-lg btn-success px-4" value="Dodaj"/>
+						<input type="reset" class="btn btn-lg btn-danger" value="Wyczyść"/>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
