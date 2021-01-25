@@ -137,6 +137,99 @@ class User extends \Core\Model
 	}
 	
 	/**
+	 * Add default categories of incomes to user
+	 *
+	 * @return void
+	 */
+	protected function addDefaultCategoriesOfIncomes()
+	{
+		$sql = 'SELECT name FROM incomes_category_default';
+					
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+			
+		$stmt->execute();
+		$categories = $stmt->fetchAll();
+		
+		$sql = 'INSERT INTO incomes_category_assigned_to_users 
+				VALUES (NULL, :user_id, :category)';
+		
+		foreach ($categories as $category) {
+			$stmt = $db->prepare($sql);
+			$stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+			$stmt->bindValue(':category', $category['name'], PDO::PARAM_STR);
+			
+			$stmt->execute();
+		}
+	}
+	
+	/**
+	 * Add default categories of expenses to user
+	 *
+	 * @return void
+	 */
+	protected function addDefaultCategoriesOfExpenses()
+	{
+		$sql = 'SELECT name FROM expenses_category_default';
+					
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+			
+		$stmt->execute();
+		$categories = $stmt->fetchAll();
+		
+		$sql = 'INSERT INTO expenses_category_assigned_to_users 
+				VALUES (NULL, :user_id, :category)';
+		
+		foreach ($categories as $category) {
+			$stmt = $db->prepare($sql);
+			$stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+			$stmt->bindValue(':category', $category['name'], PDO::PARAM_STR);
+			
+			$stmt->execute();
+		}
+	}
+	
+	/**
+	 * Add default methods of payments to user
+	 *
+	 * @return void
+	 */
+	protected function addDefaultMethodsOfPayments()
+	{
+		$sql = 'SELECT name FROM payment_methods_default';
+					
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+			
+		$stmt->execute();
+		$categories = $stmt->fetchAll();
+		
+		$sql = 'INSERT INTO payment_methods_assigned_to_users 
+				VALUES (NULL, :user_id, :category)';
+		
+		foreach ($categories as $category) {
+			$stmt = $db->prepare($sql);
+			$stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+			$stmt->bindValue(':category', $category['name'], PDO::PARAM_STR);
+			
+			$stmt->execute();
+		}
+	}
+	
+	/**
+	 * Add full default categories to user
+	 *
+	 * @return void
+	 */
+	public function addFullDefaultCategoriesToUser()
+	{
+		$this->addDefaultCategoriesOfIncomes();
+		$this->addDefaultCategoriesOfExpenses();
+		$this->addDefaultMethodsOfPayments();
+	}
+	
+	/**
      * Save the user model with the current property values
      *
      * @return void
