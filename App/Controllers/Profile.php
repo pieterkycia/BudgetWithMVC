@@ -143,29 +143,19 @@ class Profile extends Authenticated
 				$endDate = Date::getLastDayOfCurrentYear();
 				$option = 'option3';
 				break;
+			case 4:
+				$startDate = $_POST['startDate'];
+				$endDate = $_POST['endDate'];
+				$option = 'option4';
+				break;
 		}
 	
-		View::renderTemplate('Balance/showBalance.html', [
-			'incomes' => Balance::getIncomes($startDate, $endDate),
-			'expenses' => Balance::getExpenses($startDate, $endDate),
-			$option => 'selected'
-		]);
-	}
-	
-	/**
-	 * Show balance for custom period
-	 *
-	 * @return void
-	 */
-	public function showCustomBalanceAction()
-	{
-		$startDate = $_POST['startDate'];
-		$endDate = $_POST['endDate'];
+		$balance = new Balance($startDate, $endDate);
 		
 		View::renderTemplate('Balance/showBalance.html', [
-			'incomes' => Balance::getIncomes($startDate, $endDate),
-			'expenses' => Balance::getExpenses($startDate, $endDate),
-			'option4' => 'selected'
+			'balance' => $balance,
+			'expenses' => $balance->expenses,
+			$option => 'selected'
 		]);
 	}
 	
