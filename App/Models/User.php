@@ -137,13 +137,15 @@ class User extends \Core\Model
 	}
 	
 	/**
-	 * Add default categories of incomes to user
+	 * Add default categories to user
+	 *
+	 * @param string $categoryType. The type of category
 	 *
 	 * @return void
 	 */
-	protected function addDefaultCategoriesOfIncomes()
+	protected function addDefaultCategoriesToUser($categoryType)
 	{
-		$sql = 'SELECT name FROM incomes_category_default';
+		$sql = 'SELECT name FROM ' . $categoryType . '_default';
 					
 		$db = static::getDB();
 		$stmt = $db->prepare($sql);
@@ -151,61 +153,7 @@ class User extends \Core\Model
 		$stmt->execute();
 		$categories = $stmt->fetchAll();
 		
-		$sql = 'INSERT INTO incomes_category_assigned_to_users 
-				VALUES (NULL, :user_id, :category)';
-		
-		foreach ($categories as $category) {
-			$stmt = $db->prepare($sql);
-			$stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-			$stmt->bindValue(':category', $category['name'], PDO::PARAM_STR);
-			
-			$stmt->execute();
-		}
-	}
-	
-	/**
-	 * Add default categories of expenses to user
-	 *
-	 * @return void
-	 */
-	protected function addDefaultCategoriesOfExpenses()
-	{
-		$sql = 'SELECT name FROM expenses_category_default';
-					
-		$db = static::getDB();
-		$stmt = $db->prepare($sql);
-			
-		$stmt->execute();
-		$categories = $stmt->fetchAll();
-		
-		$sql = 'INSERT INTO expenses_category_assigned_to_users 
-				VALUES (NULL, :user_id, :category)';
-		
-		foreach ($categories as $category) {
-			$stmt = $db->prepare($sql);
-			$stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-			$stmt->bindValue(':category', $category['name'], PDO::PARAM_STR);
-			
-			$stmt->execute();
-		}
-	}
-	
-	/**
-	 * Add default methods of payments to user
-	 *
-	 * @return void
-	 */
-	protected function addDefaultMethodsOfPayments()
-	{
-		$sql = 'SELECT name FROM payment_methods_default';
-					
-		$db = static::getDB();
-		$stmt = $db->prepare($sql);
-			
-		$stmt->execute();
-		$categories = $stmt->fetchAll();
-		
-		$sql = 'INSERT INTO payment_methods_assigned_to_users 
+		$sql = 'INSERT INTO ' . $categoryType . '_assigned_to_users 
 				VALUES (NULL, :user_id, :category)';
 		
 		foreach ($categories as $category) {
@@ -224,9 +172,9 @@ class User extends \Core\Model
 	 */
 	public function addFullDefaultCategoriesToUser()
 	{
-		$this->addDefaultCategoriesOfIncomes();
-		$this->addDefaultCategoriesOfExpenses();
-		$this->addDefaultMethodsOfPayments();
+		$this->addDefaultCategoriesToUser('incomes_category');
+		$this->addDefaultCategoriesToUser('expenses_category');
+		$this->addDefaultCategoriesToUser('payment_methods');
 	}
 	
 	/**
