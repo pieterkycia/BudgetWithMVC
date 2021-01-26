@@ -114,9 +114,9 @@ class Date
 	 *
 	 * @return string $date. Date with first day of previous year
 	 */
-	public static function getFirstDayOfPreviousYear()
+	public static function getFirstDayOfCurrentYear()
 	{
-		$dateInSeconds = mktime(0, 0, 0, 1, 1, date('Y')-1);
+		$dateInSeconds = mktime(0, 0, 0, 1, 1, date('Y'));
 		$date = date('Y-m-d', $dateInSeconds);
 		return $date;
 	}
@@ -126,9 +126,9 @@ class Date
 	 *
 	 * @return string $date. Date with last day of previous year
 	 */
-	public static function getLastDayOfPreviousYear()
+	public static function getLastDayOfCurrentYear()
 	{
-		$dateInSeconds = mktime(0, 0, 0, 12, 31, date('Y')-1);
+		$dateInSeconds = mktime(0, 0, 0, 12, 31, date('Y'));
 		$date = date('Y-m-d', $dateInSeconds);
 		return $date;
 	}

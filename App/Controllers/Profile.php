@@ -8,6 +8,7 @@ use \App\Flash;
 use \App\Date;
 use \App\Models\Income;
 use \App\Models\Expense;
+use \App\Models\Balance;
 
 /**
  * Profile controller
@@ -26,7 +27,7 @@ class Profile extends Authenticated
 	}
 	
 	/**
-	 * Show the profile
+	 * Show the profile menu
 	 *
 	 * @return void
 	 */
@@ -37,6 +38,11 @@ class Profile extends Authenticated
 		]);
 	}
 	
+	/**
+	 * Show add income form
+	 *
+	 * @return void
+	 */
 	public function incomeFormAction()
 	{
 		View::renderTemplate('Income/addIncome.html', [
@@ -45,6 +51,11 @@ class Profile extends Authenticated
 		]);
 	}
 	
+	/**
+	 * Add new income to database
+	 *
+	 * @return void
+	 */
 	public function addIncomeAction()
 	{
 		$income = new Income($_POST);
@@ -64,6 +75,11 @@ class Profile extends Authenticated
 		}
 	}
 	
+	/**
+	 * Show add expense form
+	 *
+	 * @return void
+	 */
 	public function expenseFormAction()
 	{
 		View::renderTemplate('Expense/addExpense.html', [
@@ -73,6 +89,11 @@ class Profile extends Authenticated
 		]);
 	}
 	
+	/**
+	 * Add new expense to database
+	 *
+	 * @return void
+	 */
 	public function addExpenseAction()
 	{
 		$expense = new Expense($_POST);
@@ -92,4 +113,76 @@ class Profile extends Authenticated
 		]);
 		}
 	}
+	
+	/**
+	 * Show balance for given period
+	 *
+	 * @return void
+	 */
+	public function showBalanceAction()
+	{
+		if (isset($_POST['selectDate'])) {
+			$choice = $_POST['selectDate'];
+		} else {
+			$choice = 1;
+		}
+		
+		switch($choice) {
+			case 1:
+				$startDate = Date::getFirstDayOfCurrentMonth();
+				$endDate = Date::getLastDayOfCurrentMonth();
+				$option = 'option1';
+				break;
+			case 2:
+				$startDate = Date::getFirstDayOfPreviousMonth();
+				$endDate = Date::getLastDayOfPreviousMonth();
+				$option = 'option2';
+				break;
+			case 3:
+				$startDate = Date::getFirstDayOfCurrentYear();
+				$endDate = Date::getLastDayOfCurrentYear();
+				$option = 'option3';
+				break;
+		}
+	
+		View::renderTemplate('Balance/showBalance.html', [
+			'incomes' => Balance::getIncomes($startDate, $endDate),
+			'expenses' => Balance::getExpenses($startDate, $endDate),
+			$option => 'selected'
+		]);
+	}
+	
+	/**
+	 * Show balance for custom period
+	 *
+	 * @return void
+	 */
+	public function showCustomBalanceAction()
+	{
+		$startDate = $_POST['startDate'];
+		$endDate = $_POST['endDate'];
+		
+		View::renderTemplate('Balance/showBalance.html', [
+			'incomes' => Balance::getIncomes($startDate, $endDate),
+			'expenses' => Balance::getExpenses($startDate, $endDate),
+			'option4' => 'selected'
+		]);
+	}
+	
+	/**
+	 * Check dates for custom period
+	 *
+	 * @retrun boolean. True if dates are correct, false otherwise
+	 */
+	public function checkDatesAction()
+	{
+		$startDate = $_POST['startDate'];
+		$endDate = $_POST['endDate'];
+		if (Date::validateDate($startDate) && Date::validateDate($endDate) && $startDate <= $endDate) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+	}
+	
 }
