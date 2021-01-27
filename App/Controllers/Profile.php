@@ -33,9 +33,16 @@ class Profile extends Authenticated
 	 */
 	public function menuAction()
 	{
-		View::renderTemplate('Profile/menu.html', [
-			'user' => $this->user
+		$startDate = Date::getFirstDayOfCurrentMonth();
+		$endDate = Date::getLastDayOfCurrentMonth();
+		
+		$balance = new Balance($startDate, $endDate);
+		
+		View::renderTemplate('profile/menu.html', [
+			'balance' => $balance,
 		]);
+
+		$_SESSION['expenses'] = $balance->expenses;
 	}
 	
 	/**
@@ -80,7 +87,7 @@ class Profile extends Authenticated
 	 *
 	 * @return void
 	 */
-	public function expenseFormAction()
+	public function expenseForm()
 	{
 		View::renderTemplate('Expense/addExpense.html', [
 			'date' => date('Y-m-d'),
@@ -154,9 +161,10 @@ class Profile extends Authenticated
 		
 		View::renderTemplate('Balance/showBalance.html', [
 			'balance' => $balance,
-			'expenses' => $balance->expenses,
 			$option => 'selected'
 		]);
+		
+		$_SESSION['expenses'] = $balance->expenses;
 	}
 	
 	/**
@@ -164,7 +172,7 @@ class Profile extends Authenticated
 	 *
 	 * @retrun boolean. True if dates are correct, false otherwise
 	 */
-	public function checkDatesAction()
+	public function checkDates()
 	{
 		$startDate = $_POST['startDate'];
 		$endDate = $_POST['endDate'];
@@ -173,6 +181,16 @@ class Profile extends Authenticated
 		} else {
 			echo 'false';
 		}
+	}
+	
+	/**
+	 * Get Expenses for chart
+	 *
+	 * @return array dates
+	 */
+	public function getExpenses()
+	{
+		echo json_encode($_SESSION['expenses']);
 	}
 	
 }
