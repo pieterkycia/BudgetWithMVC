@@ -13,11 +13,29 @@
 						<div class="col-10 col-lg-8 mx-auto">
 							<fieldset class="shadow-xl rounded-xl pl-3 mt-3">
 								<h3 class="pt-3">Wydatki</h3>
-								<p id="expenses" style="font-size: 15px;">
-									<div>
-										{{ user.username }}, {{ user.email }}, {{ user.id }},
-									</div>
-								</p>
+								<p id="expenses" style="font-size: 15px;"></p>
+								
+								{% if balance.expenses %}
+									<table class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>Expense</th>
+												<th>Amount</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for expense in balance.expenses %}
+												<tr>
+													<td>{{ expense['name'] }}</td>
+													<td>{{ expense['amount']}}</td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								{% else %}
+									<p>Brak wydatków!</p>
+								{% endif %}
+								<b>Sum of expenses: {{ balance.sumOfExpenses }}</b>
 							</fieldset>
 						</div>
 					</div>
@@ -31,5 +49,8 @@
 			</div>
 		</div>
 	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<script src="/js/balance.js"></script>
 	
 {% endblock %}
