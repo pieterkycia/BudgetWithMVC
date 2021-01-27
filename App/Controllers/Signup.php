@@ -21,7 +21,7 @@ class Signup extends \Core\Controller
 		if (isset($_SESSION['user_id'])) {
 			$this->redirect('/profile/menu');
 		} else {
-			View::renderTemplate('signup/new.html');
+			View::renderTemplate('Signup/new.html');
 		}
     }
 	

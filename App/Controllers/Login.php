@@ -22,7 +22,7 @@ class Login extends \Core\Controller
 		if (isset($_SESSION['user_id'])) {
 			$this->redirect('/profile/menu');
 		} else {
-			View::renderTemplate('login/new.html');
+			View::renderTemplate('Login/new.html');
 		}
 	}
 	
@@ -45,7 +45,7 @@ class Login extends \Core\Controller
 		} else {
 			Flash::addMessage('Login unsuccessful, please try again!', Flash::WARNING);
 			
-			View::renderTemplate('login/new.html', [
+			View::renderTemplate('Login/new.html', [
 			'email' => $_POST['email'],
 			'error_login' => 'Invalid email or password!'
 			]);

@@ -38,7 +38,7 @@ class Profile extends Authenticated
 		
 		$balance = new Balance($startDate, $endDate);
 		
-		View::renderTemplate('profile/menu.html', [
+		View::renderTemplate('Profile/menu.html', [
 			'balance' => $balance,
 		]);
 
