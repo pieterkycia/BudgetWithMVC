@@ -3,41 +3,40 @@
 {% block title %}Log in{% endblock %}
 
 {% block body %}
-
-	<div class="container">
-		<div class="row">
+	
+	<div class="container p-3 bg-light rounded shadow-custom">
+	
+		<h2> Logowanie <hr></hr></h2>
+		
+		<div class="row m-0">
 			<div class="col-md-8 col-lg-6 mx-auto">
-				<div class="shadow-lg app-description pb-4">
-					<h2 class="text-center">Logowanie!</h2>
+			
+				<h5 class="mb-3 text-center"> Zaloguj się! </h5>
+			
+				<form method="post" action="/login/create">
 					
-					<form method="post" action="/login/create">
+					<label class="sr-only" for="email"> Email </label>
+					<input class="form-control mt-2" type="email" id="email" name="email" placeholder="E-mail"
+						value="{{ email }}" />
 					
-						<div class="form-group mt-4">
-							<label for="email" class="sr-only">Email</label>
-							<input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="{{ email }}" />
-						</div>
+					<label class="sr-only" for="password"> Password </label>
+					<input class="form-control mt-2" type="password" id="password" name="password" 
+						placeholder="Hasło" />
 						
-						<div class="form-group">
-							<label for="password" class="sr-only">Password</label>
-							<input type="password" id="password" name="password" class="form-control" placeholder="Hasło"/>
+					{% if error_login %}
+						<div class="error">
+							{{ error_login }}
 						</div>
-						
-						{% if error_login %}
-							<div class="error">
-								{{ error_login }}
-							</div>
-						{% endif %}
-							
-						<div class="text-center mt-4">
-							<input type="submit" class="btn btn-success" value="Zaloguj się"/>
-							<input type="reset" class="btn btn-danger" value="Wyczyść"/>
-						</div>
-						
-					</form>
+					{% endif %}
 					
-				</div>
+					<div class="row mx-0 my-4">
+						<input type="submit" class="col btn btn-info" value="Zaloguj" />
+						<input type="reset" class="col ml-2 btn btn-danger" value="Wyczyść" />
+					</div>
+					
+				</form>	
 			</div>
 		</div>
 	</div>
-	
+
 {% endblock %}

@@ -4,25 +4,19 @@ body {
   background-image: url("../img/cork.png");
 }
 
-nav {
-  background-color: #eee; 
-  color: green;
+.navbar-brand i{
+  color: #29a329;
+  font-weight: 700;
 }
 
-.app-description {
-  background-color: #eee;
-  border-radius: 20px;
-  font-size: 20px;
-  padding: 15px 28px;
+.navbar-brand:hover i{
+  color: #258e25;
 }
 
-.navbar-toggler {
-  border: 2px solid #eee;
-}
-
-.navbar-toggler:focus {
+.navbar-toggler:hover,
+.navbar-toggler:focus{
   outline: none;
-  border: 2px solid #bbb;
+  background-color: #ddd;
 }
 
 .form-control:focus {
@@ -30,25 +24,46 @@ nav {
   box-shadow: 0 0 5px 0 #ccc;
 } 
 
-.rounded-xl {
-  border-radius: 15px;
+.form-check {
+  background-color: #eee;
+  border: 1px solid #ddd; 
+  border-radius: 4px;
+  margin: 4px 0;
+  padding: 0;
 }
 
-.shadow-xl {
-  box-shadow: 1px 2px 6px -2px black;	
+.form-check label{
+  width: 100%;
+  padding: 0 0 0 3px;
 }
 
-fieldset {
-  border: 2px solid #ccc;
+.form-check label:hover,
+.form-check input:hover {
+  cursor: pointer;
+}
+
+.shadow-custom {
+  box-shadow: 0px 0px 6px -2px black;	
 }
 
 #comment {
   resize: none;
 }
 
+.table:hover {
+  cursor: pointer;
+}
+
 .error {
+  background-color: #ffcccc;
   font-size: 15px;
-  color: red;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-bottom: 4px;
+  padding: 2px 7px;
+  border: 1px solid #ffb3b3;
+  border-radius: 4px;
+}
+
+.pointer:hover {
+  cursor: pointer;	
 }

@@ -3,92 +3,257 @@
 {% block title %}Settings{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-			<div class="col-md-10 mx-auto">
-				<div class="shadow-lg app-description p-3">
-					<h2 class="pl-3">Ustawienia</h2>
-					<div class="px-3 mt-3">
-						<form action="menu.html">
-							<fieldset class="col shadow-xl rounded-xl">
-								<legend class="w-auto p-2"> Edytuj dane użytkownika </legend>
-								<div class="row mb-3">
-									<div class="pl-3">
-										<label for="editName">Edytuj imię:</label>
-									</div>
-									<div class="col-10 col-lg-5">
-										<input type="text" id="editName" class="form-control" placeholder="Podaj nowe imię"/>
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="pl-3">
-										<label for="editEmail">Edytuj email:</label>
-									</div>
-									<div class="col-10 col-lg-5">
-										<input type="email" id="editEmail" class="form-control" placeholder="Podaj nowy email"/>
-									</div>
-								</div>
-								<div class="row mb-3">
-									<div class="pl-3">
-										<label for="editPassword">Edytuj hasło:</label>
-									</div>
-									<div class="col-10 col-lg-5">
-										<input type="Password" id="editPassword" class="form-control" placeholder="Podaj nowe hasło"/>
-									</div>
-								</div>
-								<div class="pl-3 my-3">
-									<input type="submit" class="btn btn-success px-4" value="Zapisz"/>
-									<a href="menu.html" class="btn btn-danger">Anuluj</a>
-								</div>
-							</fieldset>
-						</form>
+
+	<div class="container p-3 bg-light rounded shadow-custom">
+	
+		<div class="col">
+			
+			<h2> Ustawienia <hr></hr></h2>
+		
+		<div id="accordion">	
+		
+			<div class="card">
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#incomes" >
+					<div class="d-flex flex-row">
+						<div class="pl-1 text-white w-100" >
+							<b> Kategorie przychodów </b>
+						</div>
+						<i class="text-white mr-2">v</i>
 					</div>
+				</div>	
+			
+				<div id="incomes" class="collapse" data-parent="#accordion">
+					<div class="card-body">
+						<label><b> Kategoria </b></label>
 						
-					<div class="px-3 mt-3">
-						<form action="menu.html">
-							<fieldset class="col shadow-xl rounded-xl">
-							<legend class="w-auto p-2"> Edytuj kategorie </legend>
-								
-								<div class="row mb-3">
-									<div class="col-lg-3"><label><input type="radio" name="category"/> Przychody</label></div>
-									<div class="col-lg-3"><label><input type="radio" name="category"/> Wydatki</label></div>
-									<div class="col-lg-3"><label><input type="radio" name="category"/> Płatności</label></div>
+						<div class="form-check">
+							<div class="d-flex flex-row">
+								<label class="col-form-label">
+									<input type="radio" name="category" />
+									<span>Allegro</span>
+								</label>
+			
+								<div class="mr-1">
+									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
 								</div>
-								
-								<div class="row mb-3">
-									<div class="pl-3">
-										<label for="addCategory">Dodaj:</label>
-									</div>
-									<div class="col-8 col-lg-5">
-										<input type="text" id="addCategory" class="form-control" placeholder="Podaj nazwę kategorii"/>
-									</div>
+								<div class="mr-1 py-0">
+									<div class="btn btn-danger p-0" onclick="remove()"> Usuń </div>
 								</div>
-								<div class="row mb-3">
-									<div class="pl-3">
-										<label for="deleteCategory">Usuń:</label>
-									</div>
-									<div class="col-8 col-lg-5">
-										<input type="text" id="deleteCategory" class="form-control" placeholder="Podaj nazwę kategorii"/>
-									</div>
+							</div>
+						</div>	
+							
+					</div>
+				</div>
+			</div>
+		
+			<div class="card">
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#expenses" >
+					<div class="d-flex flex-row">
+						<div class="pl-1 text-white w-100" >
+							<b> Kategorie wydatków </b>
+						</div>
+						<i class="text-white mr-2">v</i>
+					</div>
+				</div>	
+			
+				<div id="expenses" class="collapse" data-parent="#accordion">
+					<div class="card-body">
+						<label><b> Kategoria </b></label>
+						
+						<div class="form-check">
+							<div class="d-flex flex-row">
+								<label class="col-form-label">
+									<input type="radio" name="category" />
+									<span>Allegro</span>
+								</label>
+			
+								<div class="mr-1">
+									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
 								</div>
-								<div class="row mb-3">
-									<div class="pl-3">
-										<label for="editCategory">Edytuj:</label>
-									</div>
-									<div class="col-8 col-lg-5">
-										<input type="text" id="editCategory" class="form-control" placeholder="Podaj nazwę kategorii"/>
-									</div>
-									<div class="col-8 col-lg-5 mt-2 mt-lg-0">
-										<input type="text" id="editCategoryNewName" class="form-control" placeholder="Podaj nową nazwę"/>
-									</div>
+								<div class="mr-1 py-0">
+									<div class="btn btn-danger p-0" onclick="remove()"> Usuń </div>
 								</div>
-								<div class="pl-3 my-3">
-									<input type="submit" class="btn btn-success px-4" value="Zapisz"/>
-									<a href="menu.html" class="btn btn-danger">Anuluj</a>
+							</div>
+		
+						</div>	
+							
+					</div>
+				</div>
+			</div>
+		
+			<div class="card">
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#payment" >
+					<div class="d-flex flex-row">
+						<div class="pl-1 text-white w-100" >
+							<b> Sposoby płatności </b>
+						</div>
+						<i class="text-white mr-2">v</i>
+					</div>
+				</div>	
+			
+				<div id="payment" class="collapse" data-parent="#accordion">
+					<div class="card-body">
+						<label><b> Kategoria </b></label>
+						
+						<div class="form-check">
+							<div class="d-flex flex-row">
+								<label class="col-form-label">
+									<input type="radio" name="category" />
+									<span>Allegro</span>
+								</label>
+			
+								<div class="mr-1">
+									<div class="btn btn-info p-0" onclick="edit('siema')"> Edytuj </div>
 								</div>
-							</fieldset>
-						</form>
-					</div>	
+								<div class="mr-1 py-0">
+									<div class="btn btn-danger p-0" onclick="remove()"> Usuń </div>
+								</div>
+							</div>
+		
+						</div>		
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+			
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#user" >
+					<div class="d-flex flex-row">
+						<div class="pl-1 text-white w-100" >
+							<b> Użytkownik </b>
+						</div>
+						<i class="text-white mr-2">v</i>
+					</div>
+				</div>	
+			
+				<div id="user" class="collapse" data-parent="#accordion">
+					<div class="card-body">
+						<label class="mb-0 mt-1"><b> Imię </b></label>
+						
+						<div class="form-check mt-0">
+							<div class="d-flex flex-row">
+								<label class="col-form-label">
+									Pieter 
+								</label>
+			
+								<div class="mr-1">
+									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+								</div>
+							</div>
+						</div>	
+						
+						<label class="mb-0 mt-1"><b> E-mail </b></label>
+						
+						<div class="form-check mt-0">
+							<div class="d-flex flex-row">
+								<label class="col-form-label mt-0">
+									 pieterkycia@gmail.com 
+								</label>
+			
+								<div class="mr-1">
+									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+								</div>
+							</div>
+						</div>	
+						
+						<label class="mb-0 mt-1"><b> Hasło </b></label>
+						
+						<div class="form-check mt-0">
+							<div class="d-flex flex-row">
+								<label class="col-form-label">
+									Hasło
+								</label>
+			
+								<div class="mr-1">
+									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+								</div>
+							</div>
+						</div>	
+							
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	
+	<div class="modal fade" id="myModal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="modalForm" method="post" action="/profile/showBalance">
+				
+					<div class="modal-body">
+					
+						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" id="categoryName" name="categoryName" 
+						value ="Allegro" />
+
+						<div class="mt-2">
+							<label class="col-form-label">
+								<input type="checkbox" id="categoryLimitCheck" name="categoryLimitCheck" onclick="activeField()" />
+								Włącz limit kategorii
+							</label>
+						</div>
+						
+						<label class="mb-0 mt-2" for="amount"><b> Ustaw miesięczny limit kategorii </b></label>
+						<input class="form-control" type="number" id="categoryLimit" name="categoryLimit" step="0.01" disabled/>
+						
+					</div>
+					
+					<div class="modal-footer">
+					
+						<div class="row m-0 w-100">
+							<input type="button" class="col btn btn-info" value="Zmień" onclick="ajax()"/>
+							<input type="button" class="col ml-2 btn btn-danger" value="Anuluj" 
+							data-dismiss="modal"/>
+						</div>
+						
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	<script>
+	
+	function edit(data) {
+	
+	alert(data);
+		$('#myModal').modal({backdrop: 'static'},"show");
+		
+		
+	}
+	
+	function remove() {
+		alert("Usuwanie");
+	}
+	
+	function activeField() {
+		if ($('#categoryLimit').attr('disabled') == 'disabled') {
+			$('#categoryLimit').removeAttr('disabled');
+		} else {
+			$('#categoryLimit').attr('disabled', 'disabled');
+		}
+	}
+	
+	function ajax() {
+		alert('przetwarzam dane');
+		
+		$('#myModal').modal("hide");
+	}
+	
+
+	</script>
+
 {% endblock %}

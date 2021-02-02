@@ -4,73 +4,67 @@
 
 {% block body %}
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-7 col-lg-8">
-				<div class="shadow-lg app-description p-3">
-					<h1 class="mt-4">Kilka słów o aplikacji</h1>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed sagittis ligula. Aenean fermentum quam eu fringilla vehicula. Quisque ac arcu faucibus, scelerisque felis vel, sollicitudin tellus. Morbi nulla nibh, pretium non accumsan quis, rhoncus at nisl. Vestibulum nec iaculis orci. Sed tincidunt purus in turpis iaculis, eget porttitor mi viverra. Nulla elementum elit a placerat dictum. Aliquam vehicula tellus ac neque elementum, eu ornare erat auctor. Nulla fermentum dictum metus.</p>
-				</div>
+	<div class="container p-3 bg-light rounded shadow-custom">
+	
+		<h2> Rejestracja <hr></hr></h2>
+		
+		<div class="row m-0">
+
+			<div class="col-lg-6">
+				<h5 class="mb-3"> Kilka słów o aplikacji </h5>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed sagittis ligula. Aenean fermentum quam eu fringilla vehicula. Quisque ac arcu faucibus, scelerisque felis vel, sollicitudin tellus. Morbi nulla nibh, pretium non accumsan quis, rhoncus at nisl. Vestibulum nec iaculis orci. Sed tincidunt purus in turpis iaculis, eget porttitor mi viverra. Nulla elementum elit a placerat dictum.</p>
 			</div>
-				
-			<div class="col-md-5 col-lg-4 mt-3 mt-md-0">
-				<div class="shadow-lg app-description pb-4">
-					<h2 class="text-center">Zarejestruj się!</h2>
+
+			<div class="col-lg-6">
+				<h5 class="mb-3 text-center"> Utwórz konto! </h5>
+			
+				<form method="post" action="/signup/create">
 					
-					<form method="post" action="/signup/create">
+					<label class="sr-only" for="username"> Name </label>
+					<input class="form-control mt-2" type="text" id="username" name="username" placeholder="Imię" 	value="{{ user.username }}" />
 					
-						<div class="form-group mt-4">
-							<label for="username" class="sr-only">Name</label>
-							<input type="text" id="username" name="username" class="form-control" placeholder="Imię" value="{{ user.username }}" />
-						</div>
+					{% if user.errors['error_username'] %}
 						<div class="error">
-							{% if user.errors['error_username'] %}
-								{{ user.errors['error_username'] }}
-							{% endif %}
+							{{ user.errors['error_username'] }}
 						</div>
+					{% endif %}
+					
+					<label class="sr-only" for="email"> Email </label>
+					<input class="form-control mt-2" type="email" id="email" name="email" placeholder="E-mail" 		value="{{ user.email }}" />
+					
+					{% if user.errors['error_email'] %}
+						<div class="error">
+							{{ user.errors['error_email'] }}
+						</div>
+					{% endif %}
+					
+					<label class="sr-only" for="password"> Password </label>
+					<input class="form-control mt-2" type="password" id="password" name="password" 
+						placeholder="Hasło" />
 						
-						<div class="form-group">
-							<label for="email" class="sr-only">Email</label>
-							<input type="email" id="email" name="email" class="form-control" placeholder="E-mail" value="{{ user.email }}" />
-						</div>
+					{% if user.errors['error_password'] %}
 						<div class="error">
-							{% if user.errors['error_email'] %}
-								{{ user.errors['error_email'] }}
-							{% endif %}
+							{{ user.errors['error_password'] }}
 						</div>
-						
-						<div class="form-group">
-							<label for="password" class="sr-only">Password</label>
-							<input type="password" id="password" name="password" class="form-control" placeholder="Hasło"/>
-						</div>
+					{% endif %}
+					
+					<label class="sr-only" for="repeat_password"> Repeat password </label>
+					<input class="form-control mt-2" type="password" id="repeat_password" name="repeat_password" 	placeholder="Powtórz hasło" />
+					
+					{% if user.errors['error_repeat_password'] %}
 						<div class="error">
-							{% if user.errors['error_password'] %}
-								{{ user.errors['error_password'] }}
-							{% endif %}
+							{{ user.errors['error_repeat_password'] }}
 						</div>
+					{% endif %}
 							
-						<div class="form-group">
-							<label for="repeat-password" class="sr-only">Password</label>
-							<input type="password" id="repeat_password" name="repeat_password" class="form-control" placeholder="Powtórz hasło"/>
-						</div>
-						<div class="error">
-							{% if user.errors['error_repeat_password'] %}
-								{{ user.errors['error_repeat_password'] }}
-							{% endif %}
-						</div>
-						
-						<div class="text-center">
-							<input type="submit" class="btn btn-success" value="Zarejestruj"/>
-							<input type="reset" class="btn btn-danger" value="Wyczyść"/>
-						</div>
-						
-						<div class="text-center">
-							<a href="/Login" class="btn btn-primary mt-3 px-5">Logowanie</a>
-						</div>
-						
-					</form>
+					<div class="row mx-0 mt-4">
+						<input type="submit" class="col btn btn-info" value="Zarejestruj" />
+						<input type="reset" class="col ml-2 btn btn-danger" value="Wyczyść" />
+					</div>
 					
-				</div>
+					<a href="/Login" class="mt-3 mb-4 col btn btn-secondary"> Logowanie </a>
+					
+				</form>	
 			</div>
 		</div>
 	</div>
