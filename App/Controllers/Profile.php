@@ -87,7 +87,7 @@ class Profile extends Authenticated
 	 *
 	 * @return void
 	 */
-	public function expenseForm()
+	public function expenseFormAction()
 	{
 		View::renderTemplate('Expense/addExpense.html', [
 			'date' => date('Y-m-d'),
@@ -172,7 +172,7 @@ class Profile extends Authenticated
 	 *
 	 * @retrun boolean. True if dates are correct, false otherwise
 	 */
-	public function checkDates()
+	public function checkDatesAction()
 	{
 		$startDate = $_POST['startDate'];
 		$endDate = $_POST['endDate'];
@@ -188,7 +188,7 @@ class Profile extends Authenticated
 	 *
 	 * @return array dates
 	 */
-	public function getExpenses()
+	public function getExpensesAction()
 	{
 		echo json_encode($_SESSION['expenses']);
 	}

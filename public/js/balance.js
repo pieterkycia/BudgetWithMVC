@@ -1,7 +1,8 @@
-var option = $('#selectDate').val();
-	
+
+	var option;
 	$(document).ready(function() {
 		
+		option = $('#selectDate').val();
 		showChart();
 			
 		$('#selectDate').change(function() {
@@ -14,7 +15,10 @@ var option = $('#selectDate').val();
 					var startDate = $('#startDate').val();
 					var endDate = $('#endDate').val();
 					
-					$.post("/profile/checkDates", {startDate: startDate, endDate: endDate}, function(data) {
+					$.post("/profile/checkDates", {
+						startDate: startDate, 
+						endDate: endDate
+						}, function(data) {
 							
 						if (data == 'true') {
 							$('#myModal').modal("hide");
