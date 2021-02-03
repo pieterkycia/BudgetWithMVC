@@ -193,4 +193,9 @@ class Profile extends Authenticated
 		echo json_encode($_SESSION['expenses']);
 	}
 	
+	public function getIncomesAction()
+	{
+		echo json_encode(Income::getIncomes());
+	}
+	
 }

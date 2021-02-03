@@ -26,22 +26,21 @@
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
+						<form id="incomesForm" method="post">
+						{% for income in incomes %}					
 						<div class="form-check">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									<input type="radio" name="category" />
-									<span>Allegro</span>
-								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
-								</div>
-								<div class="mr-1 py-0">
-									<div class="btn btn-danger p-0" onclick="remove()"> Usuń </div>
-								</div>
-							</div>
+							<label class="col-form-label">
+								<input type="radio" name="incomes_category" value="{{ income['id'] }}" />
+								{{ income['name'] }}
+							</label>
 						</div>	
-							
+						{% endfor %}
+						<div class="row mx-0">
+							<div class="col btn btn-info p-0" onclick="edit('incomesForm')"> Edytuj </div>
+							<div class="col btn btn-danger p-0 ml-2" onclick="remove('incomesForm')"> Usuń </div>
+						</div>
+						<button class="col btn btn-info p-0 mt-2"> Dodaj nową kategorię </button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -60,22 +59,23 @@
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
+						{% for expense in expenses %}					
 						<div class="form-check">
 							<div class="d-flex flex-row">
 								<label class="col-form-label">
-									<input type="radio" name="category" />
-									<span>Allegro</span>
+									{{ expense['name'] }}
+									<div>{{ limit }}</div>
 								</label>
 			
 								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+									<div class="btn btn-info p-0" onclick="edit({{ expense['id'] }})"> Edytuj </div>
 								</div>
 								<div class="mr-1 py-0">
-									<div class="btn btn-danger p-0" onclick="remove()"> Usuń </div>
+									<div class="btn btn-danger p-0" onclick="remove({{ expense['id'] }})"> Usuń </div>
 								</div>
 							</div>
-		
 						</div>	
+						{% endfor %}
 							
 					</div>
 				</div>
@@ -95,22 +95,22 @@
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
+						{% for payment in payments %}					
 						<div class="form-check">
 							<div class="d-flex flex-row">
 								<label class="col-form-label">
-									<input type="radio" name="category" />
-									<span>Allegro</span>
+									{{ payment['name'] }}
 								</label>
 			
 								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit('siema')"> Edytuj </div>
+									<div class="btn btn-info p-0" onclick="edit({{ payment['id'] }})"> Edytuj </div>
 								</div>
 								<div class="mr-1 py-0">
-									<div class="btn btn-danger p-0" onclick="remove()"> Usuń </div>
+									<div class="btn btn-danger p-0" onclick="remove({{ payment['id'] }})"> Usuń </div>
 								</div>
 							</div>
-		
-						</div>		
+						</div>	
+						{% endfor %}		
 					</div>
 				</div>
 			</div>
@@ -137,7 +137,7 @@
 								</label>
 			
 								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+									<div class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
 								</div>
 							</div>
 						</div>	
@@ -151,7 +151,7 @@
 								</label>
 			
 								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+									<div class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
 								</div>
 							</div>
 						</div>	
@@ -165,7 +165,7 @@
 								</label>
 			
 								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit()"> Edytuj </div>
+									<div id="password" class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
 								</div>
 							</div>
 						</div>	
@@ -211,7 +211,7 @@
 					<div class="modal-footer">
 					
 						<div class="row m-0 w-100">
-							<input type="button" class="col btn btn-info" value="Zmień" onclick="ajax()"/>
+							<input type="button" class="col btn btn-info" value="Zmień" /> 
 							<input type="button" class="col ml-2 btn btn-danger" value="Anuluj" 
 							data-dismiss="modal"/>
 						</div>
@@ -225,35 +225,5 @@
 	</div>
 	
 	
-	<script>
-	
-	function edit(data) {
-	
-	alert(data);
-		$('#myModal').modal({backdrop: 'static'},"show");
-		
-		
-	}
-	
-	function remove() {
-		alert("Usuwanie");
-	}
-	
-	function activeField() {
-		if ($('#categoryLimit').attr('disabled') == 'disabled') {
-			$('#categoryLimit').removeAttr('disabled');
-		} else {
-			$('#categoryLimit').attr('disabled', 'disabled');
-		}
-	}
-	
-	function ajax() {
-		alert('przetwarzam dane');
-		
-		$('#myModal').modal("hide");
-	}
-	
-
-	</script>
 
 {% endblock %}
