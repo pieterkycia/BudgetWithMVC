@@ -61,7 +61,7 @@ class Balance extends \Core\Model
 	 */
 	private function getIncomes($startDate, $endDate)
 	{
-		$sql = 'SELECT name, SUM(amount) AS amount 
+		$sql = 'SELECT name, SUM(amount) AS amount
 				FROM incomes AS i
 				INNER JOIN incomes_category_assigned_to_users AS ic
 				ON i.income_category_assigned_to_user_id = ic.id 
@@ -94,7 +94,7 @@ class Balance extends \Core\Model
 	 */
 	private function getExpenses($startDate, $endDate)
 	{
-		$sql = 'SELECT name, SUM(amount) AS amount 
+		$sql = 'SELECT name, SUM(amount) AS amount
 				FROM expenses AS e
 				INNER JOIN expenses_category_assigned_to_users AS ec
 				ON e.expense_category_assigned_to_user_id = ec.id 

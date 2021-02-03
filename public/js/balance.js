@@ -24,7 +24,8 @@
 							$('#myModal').modal("hide");
 							$('#modalForm').submit();	
 						} else {
-							$('#errorDate').text('Invalid Date!');
+							
+							$('#errorDate').css('visibility', 'visible');
 						}
 					});
 				});
@@ -35,7 +36,7 @@
 	});
 		
 	$('.btn-close').click(function() {
-		$('#errorDate').text('');
+		$('#errorDate').css('visibility', 'hidden');
 		$('#startDate').val('');
 		$('#endDate').val('');
 			
