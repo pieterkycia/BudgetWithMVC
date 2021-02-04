@@ -102,4 +102,34 @@ class Income extends \Core\Model
 		}
 		return false;
 	}
+	
+	/**
+	 * Update income in database
+	 *
+	 * @retrun boolean. True if True if update success, false otherwise
+	 */
+	public static function updateIncome($name, $id)
+	{
+		$savedIncomes = static::getIncomes();
+
+		foreach ($savedIncomes as $key => $value) {
+
+			if ($value['name'] == $name) {
+				return false;
+			} 
+		}
+		$sql = 'UPDATE incomes_category_assigned_to_users
+				SET name = :name
+				WHERE id = :id';
+					
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+				
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+				
+		$stmt->execute();
+		return true;	
+	}
+	
 }
