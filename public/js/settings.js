@@ -1,13 +1,13 @@
 
 function getCategory(formName) {
-	$.post('/Settings/get' + formName, function (data){
+	$.post('/Settings/get' + formName + 'Categories', function (data){
 		data = JSON.parse(data);
 		
 		var id;
 		var name;
 		var text2 = 
 		`<div class="row mx-0"> 
-			<div class="col btn btn-info p-0" onclick="editCategory('` + formName + `')"> Edytuj </div>
+			<div class="col btn btn-info p-0" onclick="Income.edit()"> Edytuj </div>
 			<div class="col btn btn-danger p-0 ml-2" onclick="removeCategory('` + formName + `')"> Usuń </div> 
 		</div>
 		<div class="col btn btn-info p-0 mt-2" onclick="addCategory('` + formName + `')"> Dodaj nową kategorię </div>`;
@@ -21,9 +21,10 @@ function getCategory(formName) {
 			var text = 
 			`<div class="form-check">
 				<label class="col-form-label" >
-					<input type="radio" name="` + formName + `_category" value="` + id + `" /> ` +
-					`<span id="` + id + `">` + name + `</span>
-				</label>
+					<input type="radio" name="` + formName + `_category" value="` + name + `" /> 
+					<input type="hidden" name="` + formName + `_category" value="` + id + `" /> ` +
+					 name +
+				`</label>
 			</div>`;
 			
 			$('#' + formName).append(text);
@@ -34,9 +35,9 @@ function getCategory(formName) {
 }
 
 	$(document).ready(function () {
-		getCategory('incomes');
-		getCategory('expenses');
-		getCategory('payments');
+		Income.get();
+		getCategory('Expenses');
+		getCategory('Payments');
 	});
 	
 	
@@ -70,7 +71,7 @@ function getCategory(formName) {
 			}, function(data) {
 				if (data == 'true') {
 					alert('Zmieniono nazwe kategorii');
-					getCategory('incomes');
+					getCategory('Incomes');
 				} else {
 					alert('Nie zmieniono nazwy');
 				}

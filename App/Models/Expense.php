@@ -36,7 +36,7 @@ class Expense extends \Core\Model
 	 *
 	 * @retrun array
 	 */
-	public static function getExpenses()
+	public static function getExpensesCategories()
 	{
 		$sql = 'SELECT id, name 
 				FROM expenses_category_assigned_to_users 
@@ -56,7 +56,7 @@ class Expense extends \Core\Model
 	 *
 	 * @return array
 	 */
-	public static function getPayments()
+	public static function getPaymentsCategories()
 	{
 		$sql = 'SELECT id, name 
 				FROM payment_methods_assigned_to_users

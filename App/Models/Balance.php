@@ -70,7 +70,7 @@ class Balance extends \Core\Model
 				AND date_of_income BETWEEN :startDate AND :endDate
 				GROUP BY name 
 				ORDER BY amount DESC';
-		
+			
 		$db = static::getDB();
 		
 		$stmt = $db->prepare($sql);

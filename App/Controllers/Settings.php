@@ -27,9 +27,9 @@ class Settings extends Authenticated
 	 *
 	 * @return array. The array of incomes
 	 */
-	public static function getIncomes()
+	public static function getIncomesCategories()
 	{
-		echo json_encode(Income::getIncomes());
+		echo json_encode(Income::getIncomesCategories());
 	}
 	
 	/**
@@ -37,9 +37,9 @@ class Settings extends Authenticated
 	 *
 	 * @return array. The array of expenses
 	 */
-	public static function getExpenses()
+	public static function getExpensesCategories()
 	{
-		echo json_encode(Expense::getExpenses());
+		echo json_encode(Expense::getExpensesCategories());
 	}
 	
 	/**
@@ -47,24 +47,41 @@ class Settings extends Authenticated
 	 *
 	 * @return array. The array of payments
 	 */
-	public static function getPayments()
+	public static function getPaymentsCategories()
 	{
-		echo json_encode(Expense::getPayments());
+		echo json_encode(Expense::getPaymentsCategories());
 	}
 	
 	/**
 	 * Update name category assigned to user
 	 *
-	 * @param string $name. The name of category.
-	 * @param string $id. The id of category.
+	 * @param array $_POST. 
 	 *
 	 * @return bolean. True if update success, false otherwise
 	 */
 	public static function updateIncomeCategory()
 	{
+		$name = ucwords(strtolower($_POST['name']));
+		$id = $_POST['id'];
+		if (Income::updateIncomeCategory($name, $id)) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+	}
+	
+	/**
+	 * remove name of income category assigned to user
+	 *
+	 * @param array $_POST. 
+	 *
+	 * @return bolean. True if update success, false otherwise
+	 */
+	public static function removeIncomeCategory()
+	{
 		$name = $_POST['name'];
 		$id = $_POST['id'];
-		if (Income::updateIncome($name, $id)) {
+		if (Income::removeIncomeCategory($name, $id)) {
 			echo 'true';
 		} else {
 			echo 'false';

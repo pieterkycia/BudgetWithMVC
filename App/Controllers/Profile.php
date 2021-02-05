@@ -54,7 +54,7 @@ class Profile extends Authenticated
 	{
 		View::renderTemplate('Income/addIncome.html', [
 			'date' => date('Y-m-d'),
-			'incomes' => Income::getIncomes()
+			'incomes' => Income::getIncomesCategories()
 		]);
 	}
 	
@@ -76,7 +76,7 @@ class Profile extends Authenticated
 			
 			View::renderTemplate('Income/addIncome.html', [
 			'date' => $income->date,
-			'incomes' => Income::getIncomes(),
+			'incomes' => Income::getIncomesCategories(),
 			'income' => $income
 		]);
 		}
@@ -91,8 +91,8 @@ class Profile extends Authenticated
 	{
 		View::renderTemplate('Expense/addExpense.html', [
 			'date' => date('Y-m-d'),
-			'payments' => Expense::getPayments(),
-			'expenses' => Expense::getExpenses()
+			'payments' => Expense::getPaymentsCategories(),
+			'expenses' => Expense::getExpensesCategories()
 		]);
 	}
 	
@@ -114,8 +114,8 @@ class Profile extends Authenticated
 			
 			View::renderTemplate('Expense/addExpense.html', [
 			'date' => $expense->date,
-			'payments' => Expense::getPayments(),
-			'expenses' => Expense::getExpenses(),
+			'payments' => Expense::getPaymentsCategories(),
+			'expenses' => Expense::getExpensesCategories(),
 			'expense' => $expense
 		]);
 		}
