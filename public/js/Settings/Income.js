@@ -128,6 +128,7 @@ class Income
 	
 	static add()
 	{
+		$('#addIncomesModal input').val('');
 		$('#addIncomesModal').modal({backdrop: 'static'}, 'show');
 	}
 	

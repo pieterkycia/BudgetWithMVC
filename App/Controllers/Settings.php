@@ -63,6 +63,10 @@ class Settings extends Authenticated
 	{
 		$name = ucwords(strtolower($_POST['name']));
 		$id = $_POST['id'];
+		if ($name == '') {
+			echo 'false';
+			return;
+		}
 		if (Income::updateIncomeCategory($name, $id)) {
 			echo 'true';
 		} else {
@@ -97,6 +101,10 @@ class Settings extends Authenticated
 	public static function addIncomesCategory()
 	{
 		$name = ucwords(strtolower($_POST['name']));
+		if ($name == '') {
+			echo 'false';
+			return;
+		}
 		if (Income::addIncomeCategory($name)) {
 			echo 'true';
 		} else {
