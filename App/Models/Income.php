@@ -159,10 +159,9 @@ class Income extends \Core\Model
 	 *
 	 * @retrun boolean. True if remove success, false otherwise
 	 */
-	public static function removeIncomeCategory($name, $id)
+	public static function removeIncomeCategory($id)
 	{
 		$savedIncomes = static::getIncomesById();
-		//print_r($savedIncomes);
 		foreach ($savedIncomes as $key => $value) {
 			
 			if ($value['incomeId'] == $id) {
@@ -178,6 +177,32 @@ class Income extends \Core\Model
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 				
 		return $stmt->execute();
+	}
+	
+	/**
+	 * Add income category to database
+	 *
+	 * @retrun boolean. True if add success, false otherwise
+	 */
+	public static function addIncomeCategory($name)
+	{
+		$savedIncomes = static::getIncomesCategories();
+		foreach ($savedIncomes as $key => $value) {
+			
+			if ($value['name'] == $name) {
+				return false;
+			} 
+		}
+		$sql = 'INSERT INTO incomes_category_assigned_to_users
+				VALUES (NULL, :user_id, :category_name)';
+					
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+				
+		$stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+		$stmt->bindValue(':category_name', $name, PDO::PARAM_STR);
+
+		return $stmt->execute();	
 	}
 	
 	private static function getAnotherCategoryId()

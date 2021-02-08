@@ -13,8 +13,7 @@ class Income
 
 			$('#incomesModalName').val(name);
 			$('#incomesModalId').val(id);
-			//alert(name);
-			//alert(id);
+			
 			$('#incomesModal').modal({backdrop: 'static'}, 'show');
 		} else {
 			$('#incomes').append('<div class="error"> Choose one option! </div>');
@@ -35,10 +34,10 @@ class Income
 				name: name, id: id
 			}, function(data) {
 				if (data == 'true') {
-					alert('Zmieniono nazwe kategorii');
+					Income.#showInfoModal('Edycja kategorii', 'Zmieniono nazwę kategorii', 'success');
 					Income.get();
 				} else {
-					alert('Nie zmieniono nazwy');
+					Income.#showInfoModal('Edycja kategorii', 'Nie zmieniono nazwy kategorii', 'danger');
 				}
 			});
 		} 
@@ -64,6 +63,10 @@ class Income
 				
 				id = data[category]['id'];
 				name = data[category]['name'];
+				
+				if (name == 'Another') {
+					continue;
+				}
 				
 				var dataAsText = name + '|' + id;
 				
@@ -92,11 +95,9 @@ class Income
 			var dataAsValue = dataAsText.split('|');
 			var name = dataAsValue[0];
 			var id = dataAsValue[1];
-
+		
 			$('#removeModalName').val(name);
 			$('#removeModalId').val(id);
-			//alert(name);
-			//alert(id);
 			$('#removeModal').modal({backdrop: 'static'}, 'show');
 		} else {
 			$('#incomes').append('<div class="error"> Choose one option! </div>');
@@ -110,21 +111,51 @@ class Income
 		if (inputs.length > 0) {
 			var name = inputs[0]['value'];
 			var id = inputs[1]['value'];
-			alert(id);
 			$('#removeModal').modal('hide');
 			
 			$.post('/Settings/removeIncomeCategory', {
-				name: name, id: id
+				id: id
 			}, function(data) {
 				if (data == 'true') {
-					alert('Usunięto');
+					Income.#showInfoModal('Usuwanie kategorii', 'Usunięto kategorię', 'success');
 					Income.get();
 				} else {
-					alert('Nie usunięto');
+					Income.#showInfoModal('Usuwanie kategorii', 'Nie usunięto kategorii', 'danger');
 				}
 			});
 		} 
 	}
 	
+	static add()
+	{
+		$('#addIncomesModal').modal({backdrop: 'static'}, 'show');
+	}
+	
+	static addExecute()
+	{
+		$('#addIncomesModal').modal('hide');
+		var inputs = $('#addIncomesModalForm').serializeArray();
+		
+		var name = inputs[0]['value'];
+		
+		$.post('/Settings/addIncomesCategory', {
+			name: name
+		}, function(data) {
+			if (data == 'true') {
+				Income.#showInfoModal('Dodawanie kategorii', 'Dodano kategorię', 'success');
+				Income.get();
+			} else {
+				Income.#showInfoModal('Dodawanie kategorii', 'Nie dodano kategorii', 'danger');
+			}
+		});
+	}
+	
+	static #showInfoModal(header, content, type) {
+	
+		$('#headerModal').text(header);
+		$('#contentModal').text(content);
+		$('#contentModal').removeClass().addClass('alert alert-' + type);
+		$('#infoModal').modal({backdrop: 'static'}, 'show');
+	}
 	
 }

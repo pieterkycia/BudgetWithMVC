@@ -79,9 +79,25 @@ class Settings extends Authenticated
 	 */
 	public static function removeIncomeCategory()
 	{
-		$name = $_POST['name'];
 		$id = $_POST['id'];
-		if (Income::removeIncomeCategory($name, $id)) {
+		if (Income::removeIncomeCategory($id)) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+	}
+	
+	/**
+	 * add new income category 
+	 *
+	 * @param array $_POST
+	 *
+	 * @return bolean. True if add success, false otherwise
+	 */
+	public static function addIncomesCategory()
+	{
+		$name = ucwords(strtolower($_POST['name']));
+		if (Income::addIncomeCategory($name)) {
 			echo 'true';
 		} else {
 			echo 'false';

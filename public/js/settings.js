@@ -18,6 +18,10 @@ function getCategory(formName) {
 			id = data[i]['id'];
 			name = data[i]['name'];
 			
+			if (name == 'Another') {
+				continue;
+			}
+			
 			var text = 
 			`<div class="form-check">
 				<label class="col-form-label" >
@@ -36,8 +40,8 @@ function getCategory(formName) {
 
 	$(document).ready(function () {
 		Income.get();
-		getCategory('Expenses');
-		getCategory('Payments');
+		getCategory('expenses');
+		//getCategory('payments');
 	});
 	
 	
