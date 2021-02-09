@@ -23,33 +23,24 @@ class Settings extends Authenticated
 	}
 	
 	/**
-	 * Get incomes category assigned to user
+	 * Get category assigned to user
 	 *
-	 * @return array. The array of incomes
+	 * @return array. The array of categories
 	 */
-	public static function getIncomesCategories()
+	public static function getCategories()
 	{
-		echo json_encode(Income::getIncomesCategories());
-	}
-	
-	/**
-	 * Get expenses category assigned to user
-	 *
-	 * @return array. The array of expenses
-	 */
-	public static function getExpensesCategories()
-	{
-		echo json_encode(Expense::getExpensesCategories());
-	}
-	
-	/**
-	 * Get payments category assigned to user
-	 *
-	 * @return array. The array of payments
-	 */
-	public static function getPaymentsCategories()
-	{
-		echo json_encode(Expense::getPaymentsCategories());
+		$type = $_POST['type'];
+		switch ($type) {
+			case 'income':
+				echo json_encode(Income::getIncomesCategories());
+				break;
+			case 'expense':
+				echo json_encode(Expense::getExpensesCategories());
+				break;
+			case 'payment':
+				echo json_encode(Expense::getPaymentsCategories());
+				break;
+		}	
 	}
 	
 	/**
@@ -59,57 +50,117 @@ class Settings extends Authenticated
 	 *
 	 * @return bolean. True if update success, false otherwise
 	 */
-	public static function updateIncomeCategory()
+	public static function updateCategory()
 	{
 		$name = ucwords(strtolower($_POST['name']));
 		$id = $_POST['id'];
+		$type = $_POST['type'];
+		
 		if ($name == '') {
 			echo 'false';
 			return;
 		}
-		if (Income::updateIncomeCategory($name, $id)) {
-			echo 'true';
-		} else {
-			echo 'false';
+		$error = true;
+		switch ($type) {
+			case 'income':
+				if (Income::updateIncomeCategory($name, $id)) {
+					$error = false;
+				}
+				break;
+			case 'expense':
+				if (Expense::updateExpenseCategory($name, $id)) {
+					$error = false;
+				}
+				break;
+			case 'payment':
+				if (Expense::updatePaymentCategory($name, $id)) {
+					$error = false;
+				}
+				break;
 		}
-	}
+		if ($error) {
+			echo 'false';
+		} else {
+			echo 'true';
+		}				
+	}	
 	
 	/**
-	 * remove name of income category assigned to user
+	 * remove name  category assigned to user
 	 *
 	 * @param array $_POST. 
 	 *
-	 * @return bolean. True if update success, false otherwise
+	 * @return bolean. True if remove success, false otherwise
 	 */
-	public static function removeIncomeCategory()
+	public static function removeCategory()
 	{
 		$id = $_POST['id'];
-		if (Income::removeIncomeCategory($id)) {
-			echo 'true';
-		} else {
-			echo 'false';
+		$type = $_POST['type'];
+	
+		$error = true;
+		switch ($type) {
+			case 'income':
+				if (Income::removeIncomeCategory($id)) {
+					$error = false;
+				}
+				break;
+			case 'expense':
+				if (Expense::removeExpenseCategory($id)) {
+					$error = false;
+				}
+				break;
+			case 'payment':
+				if (Expense::removePaymentCategory($id)) {
+					$error = false;
+				}
+				break;
 		}
-	}
+		if ($error) {
+			echo 'false';
+		} else {
+			echo 'true';
+		}				
+	}	
 	
 	/**
-	 * add new income category 
+	 * add new category 
 	 *
 	 * @param array $_POST
 	 *
 	 * @return bolean. True if add success, false otherwise
 	 */
-	public static function addIncomesCategory()
+	public static function addCategory()
 	{
 		$name = ucwords(strtolower($_POST['name']));
+		$type = $_POST['type'];
+		
 		if ($name == '') {
 			echo 'false';
 			return;
 		}
-		if (Income::addIncomeCategory($name)) {
-			echo 'true';
-		} else {
-			echo 'false';
+		$error = true;
+		switch ($type) {
+			case 'income':
+				if (Income::addIncomeCategory($name)) {
+					$error = false;
+				}
+				break;
+			case 'expense':
+				if (Expense::addExpenseCategory($name)) {
+					$error = false;
+				}
+				break;
+			case 'payment':
+				if (Expense::addPaymentCategory($name)) {
+					$error = false;
+				}
+				break;
 		}
+		if ($error) {
+			echo 'false';
+		} else {
+			echo 'true';
+		}				
 	}
 	
 	

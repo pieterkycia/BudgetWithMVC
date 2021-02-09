@@ -25,7 +25,8 @@
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
-						<form id="incomes" method="post">
+						<form id="income" method="post">
+						
 						</form>
 						
 					</div>
@@ -132,8 +133,8 @@
 		</div>
 	</div>
 	
-	<!-- Incomes Modal -->
-	<div class="modal fade" id="incomesModal" role="dialog">
+	<!-- Income Modal -->
+	<div class="modal fade" id="income-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
 		
@@ -144,18 +145,18 @@
 					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
 				</div>
 				
-				<form id="incomesModalForm" method="post">
+				<form id="income-modal-form" method="post">
 				
 					<div class="modal-body">
 						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
-						<input class="form-control" type="text" id="incomesModalName" name="incomes_category" />
-						<input class="form-control" type="hidden" id="incomesModalId" name="incomes_id" />
+						<input class="form-control" type="text" name="name" />
+						<input class="form-control" type="hidden" name="id" />
 					</div>
 					
 					<div class="modal-footer">
 						<div class="row m-0 w-100">
 							<div type="button" class="col btn btn-info" 
-								onclick="Income.editExecute()"> Zmień </div> 
+								onclick="income.editExecute()"> Zmień </div> 
 							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
 						</div>
 					</div>
@@ -166,8 +167,8 @@
 		</div>
 	</div>
 	
-	<!-- Add incomes Modal -->
-	<div class="modal fade" id="addIncomesModal" role="dialog">
+	<!-- Add income Modal -->
+	<div class="modal fade" id="add-income-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
 		
@@ -178,17 +179,17 @@
 					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
 				</div>
 				
-				<form id="addIncomesModalForm" method="post">
+				<form id="add-income-modal-form" method="post">
 				
 					<div class="modal-body">
 						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
-						<input id="add_Name" class="form-control" type="text" name="add_incomes_category" />
+						<input id="add_Name" class="form-control" type="text" name="name" />
 					</div>
 					
 					<div class="modal-footer">
 						<div class="row m-0 w-100">
 							<div type="button" class="col btn btn-info" 
-								onclick="Income.addExecute()"> Dodaj </div> 
+								onclick="income.addExecute()"> Dodaj </div> 
 							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
 						</div>
 					</div>
@@ -199,8 +200,8 @@
 		</div>
 	</div>
 	
-	<!-- Remove Modal -->
-	<div class="modal fade" id="removeModal" role="dialog">
+	<!-- Remove income Modal -->
+	<div class="modal fade" id="remove-income-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
 		
@@ -211,18 +212,18 @@
 					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
 				</div>
 				
-				<form id="removeIncomesModalForm" method="post">
+				<form id="remove-income-modal-form" method="post">
 				
 					<div class="modal-body">
 						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
-						<input class="form-control" type="text" id="removeModalName"  name="removeName" readonly/>
-						<input class="form-control" type="hidden" id="removeModalId" name="removeId" />
+						<input class="form-control" type="text" name="name" readonly/>
+						<input class="form-control" type="hidden" name="id" />
 					</div>
 					
 					<div class="modal-footer">
 						<div class="row m-0 w-100">
 							<div type="button" class="col btn btn-info" 
-								onclick="Income.removeExecute()"> Usuń </div> 
+								onclick="income.removeExecute()"> Usuń </div> 
 							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
 						</div>
 					</div>
@@ -234,19 +235,19 @@
 	</div>
 	
 	<!-- Info Modal -->
-	<div class="modal fade" id="infoModal" role="dialog">
+	<div class="modal fade" id="info-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
 		
 			<div class="modal-content">
 			
 				<div class="modal-header">
-					<h4 id="headerModal" class="modal-title"> </h4>
+					<h4 id="header-modal" class="modal-title"> </h4>
 					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
 				</div>
 
 				<div class="modal-body">
-					<div id="contentModal"> </div>
+					<div id="content-modal"> </div>
 				</div>
 				
 				<div class="modal-footer">
@@ -341,7 +342,7 @@
 		</div>
 	</div>
 	<script src="/js/settings.js"></script>
-	<script src="/js/Settings/Income.js"></script>
+	
 	
 
 {% endblock %}
