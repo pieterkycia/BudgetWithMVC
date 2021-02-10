@@ -8,6 +8,7 @@ use \App\Flash;
 use \App\Date;
 use \App\Models\Income;
 use \App\Models\Expense;
+use \App\Models\Payment;
 use \App\Models\Balance;
 
 /**
@@ -91,7 +92,7 @@ class Profile extends Authenticated
 	{
 		View::renderTemplate('Expense/addExpense.html', [
 			'date' => date('Y-m-d'),
-			'payments' => Expense::getPaymentsCategories(),
+			'payments' => Payment::getPaymentsCategories(),
 			'expenses' => Expense::getExpensesCategories()
 		]);
 	}
@@ -114,7 +115,7 @@ class Profile extends Authenticated
 			
 			View::renderTemplate('Expense/addExpense.html', [
 			'date' => $expense->date,
-			'payments' => Expense::getPaymentsCategories(),
+			'payments' => Payment::getPaymentsCategories(),
 			'expenses' => Expense::getExpensesCategories(),
 			'expense' => $expense
 		]);

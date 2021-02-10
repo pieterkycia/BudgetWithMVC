@@ -26,7 +26,6 @@
 						<label><b> Kategoria </b></label>
 						
 						<form id="income" method="post">
-						
 						</form>
 						
 					</div>
@@ -405,8 +404,8 @@
 		</div>
 	</div>
 	
-	<!-- Payments Modal -->
-	<div class="modal fade" id="paymentsModal" role="dialog">
+	<!-- payment Modal -->
+	<div class="modal fade" id="payment-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
 		
@@ -417,23 +416,20 @@
 					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
 				</div>
 				
-				<form id="paymentsModalForm" method="post" action="/profile/showBalance">
+				<form id="payment-modal-form" method="post">
 				
 					<div class="modal-body">
-					
 						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
-						<input class="form-control" type="text" id="paymentsCategory" name="categoryName" 
-						value ="Payments" />
-
+						<input class="form-control" type="text" name="name" />
+						<input class="form-control" type="hidden" name="id" />
 					</div>
 					
 					<div class="modal-footer">
-					
 						<div class="row m-0 w-100">
-							<div type="button" class="col btn btn-info"> Zmień </div> 
+							<div type="button" class="col btn btn-info" 
+								onclick="payment.editExecute()"> Zmień </div> 
 							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
 						</div>
-						
 					</div>
 					
 				</form>
@@ -441,6 +437,74 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Add payment Modal -->
+	<div class="modal fade" id="add-payment-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Dodawanie kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="add-payment-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="payment.addExecute()"> Dodaj </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Remove payment Modal -->
+	<div class="modal fade" id="remove-payment-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Czy na pewno usunąć kategorię? </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="remove-payment-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" readonly/>
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="payment.removeExecute()"> Usuń </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
 	<script src="/js/settings.js"></script>
 	
 	

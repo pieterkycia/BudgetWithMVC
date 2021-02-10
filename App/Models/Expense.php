@@ -52,27 +52,7 @@ class Expense extends \Core\Model
 	}
 	
 	/**
-	 * Get full categories of payment from server
-	 *
-	 * @return array
-	 */
-	public static function getPaymentsCategories()
-	{
-		$sql = 'SELECT id, name 
-				FROM payment_methods_assigned_to_users
-				WHERE user_id = :user_id';
-		
-		$db = static::getDB();
-		$stmt = $db->prepare($sql);
-		
-		$stmt->bindParam(':user_id', $_SESSION['user_id']);
-		
-		$stmt->execute();
-		return $stmt->fetchAll();
-	}
-	
-	/**
-	 * Get user expenses from server
+	 * Get user expenses categories by id
 	 *
 	 * @retrun array
 	 */
@@ -218,7 +198,7 @@ class Expense extends \Core\Model
 		foreach ($savedExpenses as $key => $value) {
 			
 			if ($value['expenseId'] == $id) {
-				static::transferCategoryToAnother($id);
+				static::moveCategoryToAnother($id);
 			} 
 		}
 		$sql = 'DELETE FROM expenses_category_assigned_to_users
@@ -232,6 +212,11 @@ class Expense extends \Core\Model
 		return $stmt->execute();
 	}
 	
+	/*
+	 * Get id of expense category named Another
+	 *
+	 * @return int
+	 */
 	private static function getAnotherCategoryId()
 	{
 		$sql = 'SELECT id
@@ -249,7 +234,14 @@ class Expense extends \Core\Model
 		return $id['id'];
 	}
 	
-	protected static function transferCategoryToAnother($id)
+	/*
+	 * Move category to a category named Another
+	 *
+	 * @param int $id
+	 *
+	 * @return void
+	 */
+	protected static function moveCategoryToAnother($id)
 	{
 		$anotherCategoryId = static::getAnotherCategoryId();
 		$sql = 'UPDATE expenses

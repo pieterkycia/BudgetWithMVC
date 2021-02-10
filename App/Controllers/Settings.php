@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\Income;
 use \App\Models\Expense;
+use \App\Models\Payment;
 /**
  * Settings controller
  */
@@ -38,7 +39,7 @@ class Settings extends Authenticated
 				echo json_encode(Expense::getExpensesCategories());
 				break;
 			case 'payment':
-				echo json_encode(Expense::getPaymentsCategories());
+				echo json_encode(Payment::getPaymentsCategories());
 				break;
 		}	
 	}
@@ -73,7 +74,7 @@ class Settings extends Authenticated
 				}
 				break;
 			case 'payment':
-				if (Expense::updatePaymentCategory($name, $id)) {
+				if (Payment::updatePaymentCategory($name, $id)) {
 					$error = false;
 				}
 				break;
@@ -110,7 +111,7 @@ class Settings extends Authenticated
 				}
 				break;
 			case 'payment':
-				if (Expense::removePaymentCategory($id)) {
+				if (Payment::removePaymentCategory($id)) {
 					$error = false;
 				}
 				break;
@@ -151,7 +152,7 @@ class Settings extends Authenticated
 				}
 				break;
 			case 'payment':
-				if (Expense::addPaymentCategory($name)) {
+				if (Payment::addPaymentCategory($name)) {
 					$error = false;
 				}
 				break;

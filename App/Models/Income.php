@@ -52,7 +52,7 @@ class Income extends \Core\Model
 	}
 	
 	/**
-	 * Get user incomes from server
+	 * Get user incomes categories by id
 	 *
 	 * @retrun array
 	 */
@@ -165,7 +165,7 @@ class Income extends \Core\Model
 		foreach ($savedIncomes as $key => $value) {
 			
 			if ($value['incomeId'] == $id) {
-				static::transferCategoryToAnother($id);
+				static::moveCategoryToAnother($id);
 			} 
 		}
 		$sql = 'DELETE FROM incomes_category_assigned_to_users
@@ -205,6 +205,11 @@ class Income extends \Core\Model
 		return $stmt->execute();	
 	}
 	
+	/*
+	 * Get id of incomes category named Another
+	 *
+	 * @return int
+	 */
 	private static function getAnotherCategoryId()
 	{
 		$sql = 'SELECT id
@@ -222,7 +227,14 @@ class Income extends \Core\Model
 		return $id['id'];
 	}
 	
-	protected static function transferCategoryToAnother($id)
+	/*
+	 * Move category to a category named Another
+	 *
+	 * @param int $id
+	 *
+	 * @return void
+	 */
+	protected static function moveCategoryToAnother($id)
 	{
 		$anotherCategoryId = static::getAnotherCategoryId();
 		$sql = 'UPDATE incomes
