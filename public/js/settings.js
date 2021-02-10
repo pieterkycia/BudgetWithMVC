@@ -44,7 +44,7 @@ class Category
 				name: name, id: id, type: thisObject.formName
 			}, function(data) {
 				if (data == 'true') {
-					Category.#showInfoModal('Edycja kategorii', 'Zmieniono nazwê kategorii', 'success');
+					Category.#showInfoModal('Edycja kategorii', 'Zmieniono nazwÄ™ kategorii', 'success');
 					thisObject.get();
 				} else {
 					Category.#showInfoModal('Edycja kategorii', 'Nie zmieniono nazwy kategorii', 'danger');
@@ -66,9 +66,9 @@ class Category
 			var text = 
 			`<div class="row mx-0"> 
 				<div class="col btn btn-info p-0" onclick="` + thisObject.formName + `.edit()"> Edytuj </div>
-					<div class="col btn btn-danger p-0 ml-2" onclick="` + thisObject.formName + `.remove()"> Usuñ </div> 
+					<div class="col btn btn-danger p-0 ml-2" onclick="` + thisObject.formName + `.remove()"> UsuÅ„ </div> 
 			</div>
-			<div class="col btn btn-info p-0 mt-2" onclick="` + thisObject.formName + `.add()"> Dodaj now¹ kategoriê </div>`;
+			<div class="col btn btn-info p-0 mt-2" onclick="` + thisObject.formName + `.add()"> Dodaj nowÄ… kategoriÄ™ </div>`;
 		
 			$('#' + thisObject.formName).text('');
 				
@@ -132,10 +132,10 @@ class Category
 				id: id, type: thisObject.formName
 			}, function(data) {
 				if (data == 'true') {
-					Category.#showInfoModal('Usuwanie kategorii', 'Usuniêto kategoriê', 'success');
+					Category.#showInfoModal('Usuwanie kategorii', 'UsuniÄ™to kategoriÄ™', 'success');
 					thisObject.get();
 				} else {
-					Category.#showInfoModal('Usuwanie kategorii', 'Nie usuniêto kategorii', 'danger');
+					Category.#showInfoModal('Usuwanie kategorii', 'Nie usuniÄ™to kategorii', 'danger');
 				}
 			});
 		} 
@@ -143,7 +143,7 @@ class Category
 	
 	add()
 	{
-		$('#add-' + this.modalFromName + ' input').eq(0).val('');
+		$('#add-' + this.modalFormName + ' input').eq(0).val('');
 		$('#add-' + this.modalName).modal({backdrop: 'static'}, 'show');
 	}
 	
@@ -160,7 +160,7 @@ class Category
 			name: name, type: thisObject.formName
 		}, function(data) {
 			if (data == 'true') {
-				Category.#showInfoModal('Dodawanie kategorii', 'Dodano kategoriê', 'success');
+				Category.#showInfoModal('Dodawanie kategorii', 'Dodano kategoriÄ™', 'success');
 				thisObject.get();
 			} else {
 				Category.#showInfoModal('Dodawanie kategorii', 'Nie dodano kategorii', 'danger');
@@ -177,10 +177,15 @@ class Category
 	}
 	
 }
+
 var income = new Category('income');
+var expense = new Category('expense');
+var payment = new Category('payment');
 
 $(document).ready(function() {
 	
 	income.get();
+	expense.get();
+	payment.get();
 	
 });
