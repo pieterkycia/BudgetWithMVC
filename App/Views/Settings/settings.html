@@ -13,104 +13,61 @@
 		<div id="accordion">	
 		
 			<div class="card">
-				<div class="bg-info pointer" data-toggle="collapse" data-target="#incomes" >
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#incomesCard" >
 					<div class="d-flex flex-row">
 						<div class="pl-1 text-white w-100" >
 							<b> Kategorie przychodów </b>
 						</div>
-						<i class="text-white mr-2">v</i>
 					</div>
 				</div>	
 			
-				<div id="incomes" class="collapse" data-parent="#accordion">
+				<div id="incomesCard" class="collapse" data-parent="#accordion">
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
-						<form id="incomesForm" method="post">
-						{% for income in incomes %}					
-						<div class="form-check">
-							<label class="col-form-label">
-								<input type="radio" name="incomes_category" value="{{ income['id'] }}" />
-								{{ income['name'] }}
-							</label>
-						</div>	
-						{% endfor %}
-						<div class="row mx-0">
-							<div class="col btn btn-info p-0" onclick="edit('incomesForm')"> Edytuj </div>
-							<div class="col btn btn-danger p-0 ml-2" onclick="remove('incomesForm')"> Usuń </div>
-						</div>
-						<button class="col btn btn-info p-0 mt-2"> Dodaj nową kategorię </button>
+						<form id="income" method="post">
 						</form>
+						
 					</div>
 				</div>
 			</div>
 		
 			<div class="card">
-				<div class="bg-info pointer" data-toggle="collapse" data-target="#expenses" >
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#expensesCard" >
 					<div class="d-flex flex-row">
 						<div class="pl-1 text-white w-100" >
 							<b> Kategorie wydatków </b>
 						</div>
-						<i class="text-white mr-2">v</i>
 					</div>
 				</div>	
 			
-				<div id="expenses" class="collapse" data-parent="#accordion">
+				<div id="expensesCard" class="collapse" data-parent="#accordion">
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
-						{% for expense in expenses %}					
-						<div class="form-check">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									{{ expense['name'] }}
-									<div>{{ limit }}</div>
-								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit({{ expense['id'] }})"> Edytuj </div>
-								</div>
-								<div class="mr-1 py-0">
-									<div class="btn btn-danger p-0" onclick="remove({{ expense['id'] }})"> Usuń </div>
-								</div>
-							</div>
-						</div>	
-						{% endfor %}
-							
+						<form id="expense" method="post">
+						</form>	
+						
 					</div>
 				</div>
 			</div>
 		
 			<div class="card">
-				<div class="bg-info pointer" data-toggle="collapse" data-target="#payment" >
+				<div class="bg-info pointer" data-toggle="collapse" data-target="#paymentsCard" >
 					<div class="d-flex flex-row">
 						<div class="pl-1 text-white w-100" >
 							<b> Sposoby płatności </b>
 						</div>
-						<i class="text-white mr-2">v</i>
 					</div>
 				</div>	
 			
-				<div id="payment" class="collapse" data-parent="#accordion">
+				<div id="paymentsCard" class="collapse" data-parent="#accordion">
 					<div class="card-body">
 						<label><b> Kategoria </b></label>
 						
-						{% for payment in payments %}					
-						<div class="form-check">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									{{ payment['name'] }}
-								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit({{ payment['id'] }})"> Edytuj </div>
-								</div>
-								<div class="mr-1 py-0">
-									<div class="btn btn-danger p-0" onclick="remove({{ payment['id'] }})"> Usuń </div>
-								</div>
-							</div>
-						</div>	
-						{% endfor %}		
+						<form id="payment" method="post">
+						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -122,53 +79,40 @@
 						<div class="pl-1 text-white w-100" >
 							<b> Użytkownik </b>
 						</div>
-						<i class="text-white mr-2">v</i>
 					</div>
 				</div>	
 			
 				<div id="user" class="collapse" data-parent="#accordion">
 					<div class="card-body">
-						<label class="mb-0 mt-1"><b> Imię </b></label>
+						<form id="user-form" method="post">
 						
-						<div class="form-check mt-0">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									Pieter 
+							<label class="mb-0 mt-1"><b> Imię </b></label>
+							<div class="form-check">
+								<label class="col-form-label" >
+									<input type="radio" name="category" value="name"/>
+									<span>  </span>
 								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
-								</div>
 							</div>
-						</div>	
-						
-						<label class="mb-0 mt-1"><b> E-mail </b></label>
-						
-						<div class="form-check mt-0">
-							<div class="d-flex flex-row">
-								<label class="col-form-label mt-0">
-									 pieterkycia@gmail.com 
+							
+							<label class="mb-0 mt-1"><b> E-mail </b></label>
+							<div class="form-check">
+								<label class="col-form-label" >
+									<input type="radio" name="category" value="email"/>
+									<span>  </span>
 								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
-								</div>
 							</div>
-						</div>	
-						
-						<label class="mb-0 mt-1"><b> Hasło </b></label>
-						
-						<div class="form-check mt-0">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									Hasło
+							
+							<label class="mb-0 mt-1"><b> Hasło </b></label>
+							<div class="form-check">
+								<label class="col-form-label" >
+									<input type="radio" name="category" value="password"/>
+									<span> Twoje hasło </span>
 								</label>
-			
-								<div class="mr-1">
-									<div id="password" class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
-								</div>
-							</div>
-						</div>	
+							</div>	
+							
+							<div class="col btn btn-info p-0 mt-2" onclick="user.edit()"> Edytuj </div>
+							
+						</form>
 							
 					</div>
 				</div>
@@ -176,8 +120,8 @@
 		</div>
 	</div>
 	
-	
-	<div class="modal fade" id="myModal" role="dialog">
+	<!-- Income Modal -->
+	<div class="modal fade" id="income-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
 		
@@ -188,13 +132,238 @@
 					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
 				</div>
 				
-				<form id="modalForm" method="post" action="/profile/showBalance">
+				<form id="income-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="income.editExecute()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Add income Modal -->
+	<div class="modal fade" id="add-income-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Dodawanie kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="add-income-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="income.addExecute()"> Dodaj </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Remove income Modal -->
+	<div class="modal fade" id="remove-income-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Czy na pewno usunąć kategorię? </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="remove-income-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" readonly/>
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="income.removeExecute()"> Usuń </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Info Modal -->
+	<div class="modal fade" id="info-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 id="header-modal" class="modal-title"> </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+
+				<div class="modal-body">
+					<div id="content-modal"> </div>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="col btn btn-info" data-dismiss="modal"> Ok </div>
+				</div>
+					
+			</div>
+		</div>
+	</div>
+	
+	<!-- Expense Modal -->
+	<div class="modal fade" id="expense-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="expense-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="expense.editExecute()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Add expense Modal -->
+	<div class="modal fade" id="add-expense-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Dodawanie kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="add-expense-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="expense.addExecute()"> Dodaj </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Remove expense Modal -->
+	<div class="modal fade" id="remove-expense-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Czy na pewno usunąć kategorię? </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="remove-expense-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" readonly/>
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="expense.removeExecute()"> Usuń </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Expenses Modal -->
+	<div class="modal fade" id="expenses-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="expenses-modal-form" method="post">
 				
 					<div class="modal-body">
 					
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
-						<input class="form-control" type="text" id="categoryName" name="categoryName" 
-						value ="Allegro" />
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="categoryName"/>
 
 						<div class="mt-2">
 							<label class="col-form-label">
@@ -211,9 +380,8 @@
 					<div class="modal-footer">
 					
 						<div class="row m-0 w-100">
-							<input type="button" class="col btn btn-info" value="Zmień" /> 
-							<input type="button" class="col ml-2 btn btn-danger" value="Anuluj" 
-							data-dismiss="modal"/>
+							<div type="button" class="col btn btn-info"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
 						</div>
 						
 					</div>
@@ -223,6 +391,216 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Payment Modal -->
+	<div class="modal fade" id="payment-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="payment-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="payment.editExecute()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Add payment Modal -->
+	<div class="modal fade" id="add-payment-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Dodawanie kategorii </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="add-payment-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="payment.addExecute()"> Dodaj </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- Remove payment Modal -->
+	<div class="modal fade" id="remove-payment-modal" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Czy na pewno usunąć kategorię? </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="remove-payment-modal-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
+						<input class="form-control" type="text" name="name" readonly/>
+						<input class="form-control" type="hidden" name="id" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" 
+								onclick="payment.removeExecute()"> Usuń </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- User Name Modal -->
+	<div class="modal fade" id="user-modal-name" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja imienia </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="user-modal-name-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Imię <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" onclick="user.editName()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- User Email Modal -->
+	<div class="modal fade" id="user-modal-email" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja e-maila </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="user-modal-email-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> E-mail <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" onclick="user.editEmail()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- User Password Modal -->
+	<div class="modal fade" id="user-modal-password" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja hasła </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="user-modal-password-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Hasło <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" onclick="user.editPassword()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<script src="/js/Category.js"></script>
+	<script src="/js/User.js"></script>
+	<script>
+
+	$(document).ready(function() {
+		var income = new Category('income');
+		var expense = new Category('expense');
+		var payment = new Category('payment');
+		var user = new User();
+	});
+	
+	</script>
 	
 	
 

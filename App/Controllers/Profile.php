@@ -8,6 +8,7 @@ use \App\Flash;
 use \App\Date;
 use \App\Models\Income;
 use \App\Models\Expense;
+use \App\Models\Payment;
 use \App\Models\Balance;
 
 /**
@@ -54,7 +55,7 @@ class Profile extends Authenticated
 	{
 		View::renderTemplate('Income/addIncome.html', [
 			'date' => date('Y-m-d'),
-			'incomes' => Income::getIncomes()
+			'incomes' => Income::getIncomesCategories()
 		]);
 	}
 	
@@ -76,7 +77,7 @@ class Profile extends Authenticated
 			
 			View::renderTemplate('Income/addIncome.html', [
 			'date' => $income->date,
-			'incomes' => Income::getIncomes(),
+			'incomes' => Income::getIncomesCategories(),
 			'income' => $income
 		]);
 		}
@@ -91,8 +92,8 @@ class Profile extends Authenticated
 	{
 		View::renderTemplate('Expense/addExpense.html', [
 			'date' => date('Y-m-d'),
-			'payments' => Expense::getPayments(),
-			'expenses' => Expense::getExpenses()
+			'payments' => Payment::getPaymentsCategories(),
+			'expenses' => Expense::getExpensesCategories()
 		]);
 	}
 	
@@ -114,8 +115,8 @@ class Profile extends Authenticated
 			
 			View::renderTemplate('Expense/addExpense.html', [
 			'date' => $expense->date,
-			'payments' => Expense::getPayments(),
-			'expenses' => Expense::getExpenses(),
+			'payments' => Payment::getPaymentsCategories(),
+			'expenses' => Expense::getExpensesCategories(),
 			'expense' => $expense
 		]);
 		}
@@ -193,9 +194,5 @@ class Profile extends Authenticated
 		echo json_encode($_SESSION['expenses']);
 	}
 	
-	public function getIncomesAction()
-	{
-		echo json_encode(Income::getIncomes());
-	}
 	
 }
