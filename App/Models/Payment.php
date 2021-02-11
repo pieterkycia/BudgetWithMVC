@@ -136,7 +136,7 @@ class Payment extends \Core\Model
 	 *
 	 * @return int
 	 */
-	private static function getAnotherCategoryId()
+	protected static function getAnotherCategoryId()
 	{
 		$sql = 'SELECT id
 				FROM payment_methods_assigned_to_users

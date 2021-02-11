@@ -6,6 +6,7 @@ use \Core\View;
 use \App\Models\Income;
 use \App\Models\Expense;
 use \App\Models\Payment;
+use \App\Models\User;
 /**
  * Settings controller
  */
@@ -162,6 +163,76 @@ class Settings extends Authenticated
 		} else {
 			echo 'true';
 		}				
+	}
+	
+	/*
+	 * Get user data
+	 *
+	 * @return array
+	 */
+	public static function getUserData()
+	{
+		echo json_encode(User::findById($_SESSION['user_id']));
+	}
+	
+	/*
+	 * Edit user name
+	 *
+	 * @return boolean. True if edit name success, false otherwise
+	 */
+	public static function editUserName()
+	{
+		$name = ucwords(strtolower($_POST['name']));
+		
+		if ($name == '') {
+			echo 'false';
+			return;
+		}
+		if (User::editUserName($name)) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+	}
+	
+	/*
+	 * Edit user email
+	 *
+	 * @return boolean. True if edit email success, false otherwise
+	 */
+	public static function editUserEmail()
+	{
+		$email = $_POST['email'];
+		
+		if ($email == '') {
+			echo 'false';
+			return;
+		}
+		if (User::editUserEmail($email)) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
+	}
+	
+	/*
+	 * Edit user password
+	 *
+	 * @return boolean. True if edit password success, false otherwise
+	 */
+	public static function editUserPassword()
+	{
+		$password = $_POST['password'];
+		
+		if ($password == '') {
+			echo 'false';
+			return;
+		}
+		if (User::editUserPassword($password)) {
+			echo 'true';
+		} else {
+			echo 'false';
+		}
 	}
 	
 	

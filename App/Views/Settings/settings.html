@@ -84,47 +84,35 @@
 			
 				<div id="user" class="collapse" data-parent="#accordion">
 					<div class="card-body">
-						<label class="mb-0 mt-1"><b> Imię </b></label>
+						<form id="user-form" method="post">
 						
-						<div class="form-check mt-0">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									Pieter 
+							<label class="mb-0 mt-1"><b> Imię </b></label>
+							<div class="form-check">
+								<label class="col-form-label" >
+									<input type="radio" name="category" value="name"/>
+									<span>  </span>
 								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
-								</div>
 							</div>
-						</div>	
-						
-						<label class="mb-0 mt-1"><b> E-mail </b></label>
-						
-						<div class="form-check mt-0">
-							<div class="d-flex flex-row">
-								<label class="col-form-label mt-0">
-									 pieterkycia@gmail.com 
+							
+							<label class="mb-0 mt-1"><b> E-mail </b></label>
+							<div class="form-check">
+								<label class="col-form-label" >
+									<input type="radio" name="category" value="email"/>
+									<span>  </span>
 								</label>
-			
-								<div class="mr-1">
-									<div class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
-								</div>
 							</div>
-						</div>	
-						
-						<label class="mb-0 mt-1"><b> Hasło </b></label>
-						
-						<div class="form-check mt-0">
-							<div class="d-flex flex-row">
-								<label class="col-form-label">
-									Hasło
+							
+							<label class="mb-0 mt-1"><b> Hasło </b></label>
+							<div class="form-check">
+								<label class="col-form-label" >
+									<input type="radio" name="category" value="password"/>
+									<span> Twoje hasło </span>
 								</label>
-			
-								<div class="mr-1">
-									<div id="password" class="btn btn-info p-0" onclick="edit({{ user_id }})"> Edytuj </div>
-								</div>
-							</div>
-						</div>	
+							</div>	
+							
+							<div class="col btn btn-info p-0 mt-2" onclick="user.edit()"> Edytuj </div>
+							
+						</form>
 							
 					</div>
 				</div>
@@ -147,7 +135,7 @@
 				<form id="income-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" />
 						<input class="form-control" type="hidden" name="id" />
 					</div>
@@ -181,7 +169,7 @@
 				<form id="add-income-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" />
 					</div>
 					
@@ -214,7 +202,7 @@
 				<form id="remove-income-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" readonly/>
 						<input class="form-control" type="hidden" name="id" />
 					</div>
@@ -272,7 +260,7 @@
 				<form id="expense-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" />
 						<input class="form-control" type="hidden" name="id" />
 					</div>
@@ -306,7 +294,7 @@
 				<form id="add-expense-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" />
 					</div>
 					
@@ -339,7 +327,7 @@
 				<form id="remove-expense-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" readonly/>
 						<input class="form-control" type="hidden" name="id" />
 					</div>
@@ -374,7 +362,7 @@
 				
 					<div class="modal-body">
 					
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="categoryName"/>
 
 						<div class="mt-2">
@@ -404,7 +392,7 @@
 		</div>
 	</div>
 	
-	<!-- payment Modal -->
+	<!-- Payment Modal -->
 	<div class="modal fade" id="payment-modal" role="dialog">
 	
 		<div class="modal-dialog modal-lg">
@@ -419,7 +407,7 @@
 				<form id="payment-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" />
 						<input class="form-control" type="hidden" name="id" />
 					</div>
@@ -453,7 +441,7 @@
 				<form id="add-payment-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" />
 					</div>
 					
@@ -486,7 +474,7 @@
 				<form id="remove-payment-modal-form" method="post">
 				
 					<div class="modal-body">
-						<label class="mb-0 mt-2" for="username"><b> Nazwa kategorii <b></label>
+						<label class="mb-0 mt-2"><b> Nazwa kategorii <b></label>
 						<input class="form-control" type="text" name="name" readonly/>
 						<input class="form-control" type="hidden" name="id" />
 					</div>
@@ -505,7 +493,114 @@
 		</div>
 	</div>
 	
-	<script src="/js/settings.js"></script>
+	<!-- User Name Modal -->
+	<div class="modal fade" id="user-modal-name" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja imienia </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="user-modal-name-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Imię <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" onclick="user.editName()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- User Email Modal -->
+	<div class="modal fade" id="user-modal-email" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja e-maila </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="user-modal-email-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> E-mail <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" onclick="user.editEmail()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<!-- User Password Modal -->
+	<div class="modal fade" id="user-modal-password" role="dialog">
+	
+		<div class="modal-dialog modal-lg">
+		
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<h4 class="modal-title"> Edycja hasła </h4>
+					<button type="button" class="close btn-close" data-dismiss="modal">&times;</button>			
+				</div>
+				
+				<form id="user-modal-password-form" method="post">
+				
+					<div class="modal-body">
+						<label class="mb-0 mt-2"><b> Hasło <b></label>
+						<input class="form-control" type="text" name="name" />
+					</div>
+					
+					<div class="modal-footer">
+						<div class="row m-0 w-100">
+							<div type="button" class="col btn btn-info" onclick="user.editPassword()"> Zmień </div> 
+							<div class="col ml-2 btn btn-danger" data-dismiss="modal"> Anuluj </div>
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
+	<script src="/js/Category.js"></script>
+	<script src="/js/User.js"></script>
+	<script>
+
+	$(document).ready(function() {
+		var income = new Category('income');
+		var expense = new Category('expense');
+		var payment = new Category('payment');
+		var user = new User();
+	});
+	
+	</script>
 	
 	
 

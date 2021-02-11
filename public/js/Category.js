@@ -5,12 +5,14 @@ class Category
 		this.formName = name;
 		this.modalName = name + '-modal';
 		this.modalFormName = name + '-modal-form';
+		
+		this.get();
 	}
 	
 	edit() 
 	{ 
-	
 		$('#' + this.formName + ' div.error').remove();
+		
 		var inputs = $('#' + this.formName).serializeArray();
 		
 		if (inputs.length > 0) {
@@ -44,10 +46,10 @@ class Category
 				name: name, id: id, type: thisObject.formName
 			}, function(data) {
 				if (data == 'true') {
-					Category.#showInfoModal('Edycja kategorii', 'Zmieniono nazwę kategorii', 'success');
+					Category.showInfoModal('Edycja kategorii', 'Zmieniono nazwę kategorii', 'success');
 					thisObject.get();
 				} else {
-					Category.#showInfoModal('Edycja kategorii', 'Nie zmieniono nazwy kategorii', 'danger');
+					Category.showInfoModal('Edycja kategorii', 'Nie zmieniono nazwy kategorii', 'danger');
 				}
 			});
 		} 
@@ -101,6 +103,7 @@ class Category
 	remove()
 	{
 		$('#' + this.formName + ' div.error').remove();
+		
 		var inputs = $('#' + this.formName).serializeArray();
 		
 		if (inputs.length > 0) {
@@ -132,10 +135,10 @@ class Category
 				id: id, type: thisObject.formName
 			}, function(data) {
 				if (data == 'true') {
-					Category.#showInfoModal('Usuwanie kategorii', 'Usunięto kategorię', 'success');
+					Category.showInfoModal('Usuwanie kategorii', 'Usunięto kategorię', 'success');
 					thisObject.get();
 				} else {
-					Category.#showInfoModal('Usuwanie kategorii', 'Nie usunięto kategorii', 'danger');
+					Category.showInfoModal('Usuwanie kategorii', 'Nie usunięto kategorii', 'danger');
 				}
 			});
 		} 
@@ -150,6 +153,7 @@ class Category
 	addExecute()
 	{
 		$('#add-' + this.modalName).modal('hide');
+		
 		var inputs = $('#add-' + this.modalFormName).serializeArray();
 		
 		var name = inputs[0]['value'];
@@ -160,32 +164,19 @@ class Category
 			name: name, type: thisObject.formName
 		}, function(data) {
 			if (data == 'true') {
-				Category.#showInfoModal('Dodawanie kategorii', 'Dodano kategorię', 'success');
+				Category.showInfoModal('Dodawanie kategorii', 'Dodano kategorię', 'success');
 				thisObject.get();
 			} else {
-				Category.#showInfoModal('Dodawanie kategorii', 'Nie dodano kategorii', 'danger');
+				Category.showInfoModal('Dodawanie kategorii', 'Nie dodano kategorii', 'danger');
 			}
 		});
 	}
 	
-	static #showInfoModal(header, content, type) {
+	static showInfoModal(header, content, type) {
 	
 		$('#header-modal').text(header);
 		$('#content-modal').text(content);
 		$('#content-modal').removeClass().addClass('alert alert-' + type);
 		$('#info-modal').modal({backdrop: 'static'}, 'show');
 	}
-	
 }
-
-var income = new Category('income');
-var expense = new Category('expense');
-var payment = new Category('payment');
-
-$(document).ready(function() {
-	
-	income.get();
-	expense.get();
-	payment.get();
-	
-});

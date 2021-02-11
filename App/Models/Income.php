@@ -210,7 +210,7 @@ class Income extends \Core\Model
 	 *
 	 * @return int
 	 */
-	private static function getAnotherCategoryId()
+	protected static function getAnotherCategoryId()
 	{
 		$sql = 'SELECT id
 				FROM incomes_category_assigned_to_users

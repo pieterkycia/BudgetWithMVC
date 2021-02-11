@@ -223,4 +223,65 @@ class User extends \Core\Model
 		}
 		return false;
 	}
+	
+	public static function editUserName($name) {
+		$sql = 'UPDATE users
+				SET username = :username
+				WHERE id = :user_id';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		
+		$stmt->bindValue('username', $name, PDO::PARAM_STR);
+		$stmt->bindValue('user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+		return $stmt->execute();
+	}
+	
+	public static function editUserEmail($email) {
+		if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+			return false;
+		}
+		
+		if (static::emailExists($email)) {
+			return false;
+		}
+
+		$sql = 'UPDATE users
+				SET email = :email
+				WHERE id = :user_id';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		
+		$stmt->bindValue('email', $email, PDO::PARAM_STR);
+		$stmt->bindValue('user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+		return $stmt->execute();
+	}
+	
+	public static function editUserPassword($password)
+	{
+		if (strlen($password) < 6) {
+			return false;
+			//$this->errors['error_password'] = 'Please enter at least 6 characters for the password!';
+		}
+
+		if (preg_match('/.*[a-z]+.*/i', $password) == 0) {
+			return false;
+			//$this->errors['error_password'] = 'Password needs at least one letter!';
+		}
+			
+		if (preg_match('/.*\d+.*/i', $password) == 0) {
+			return false;
+			//$this->errors['error_password'] = 'Password needs at least one number!';
+		}	
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+		
+		$sql = 'UPDATE users
+				SET password = :password_hash
+				WHERE id = :user_id';
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+		
+		$stmt->bindValue('password_hash', $password_hash, PDO::PARAM_STR);
+		$stmt->bindValue('user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+		return $stmt->execute();
+	}
 }

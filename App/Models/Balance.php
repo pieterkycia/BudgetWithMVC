@@ -59,7 +59,7 @@ class Balance extends \Core\Model
 	 *
 	 * @retrun array
 	 */
-	private function getIncomes($startDate, $endDate)
+	protected function getIncomes($startDate, $endDate)
 	{
 		$sql = 'SELECT name, SUM(amount) AS amount
 				FROM incomes AS i
@@ -92,7 +92,7 @@ class Balance extends \Core\Model
 	 *
 	 * @retrun array
 	 */
-	private function getExpenses($startDate, $endDate)
+	protected function getExpenses($startDate, $endDate)
 	{
 		$sql = 'SELECT name, SUM(amount) AS amount
 				FROM expenses AS e
@@ -126,7 +126,7 @@ class Balance extends \Core\Model
 	 *
 	 * @retrun array
 	 */
-	private function getSumOfIncomes($startDate, $endDate)
+	protected function getSumOfIncomes($startDate, $endDate)
 	{
 		$sql = 'SELECT SUM(amount) AS sum 
 				FROM incomes AS i
@@ -164,7 +164,7 @@ class Balance extends \Core\Model
 	 *
 	 * @retrun array
 	 */
-	private function getSumOfExpenses($startDate, $endDate)
+	protected function getSumOfExpenses($startDate, $endDate)
 	{
 		$sql = 'SELECT SUM(amount) AS sum 
 				FROM expenses AS e
