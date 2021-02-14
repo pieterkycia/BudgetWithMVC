@@ -57,6 +57,9 @@
 							<input type="radio" name="category"  value="{{ exp['id'] }}"
 								{% if expense.category == exp['id'] %} checked {% endif %} />
 							{{ exp['name'] }}
+							{% if exp['category_limit'] > 0 %}
+								<div class="ml-3 font-weight-light"> Limit: {{ exp['category_limit'] }} </div>
+							{% endif %}
 						</label>
 					</div>		
 				{% endfor %}	

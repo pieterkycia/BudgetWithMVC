@@ -70,7 +70,8 @@ class Settings extends Authenticated
 				}
 				break;
 			case 'expense':
-				if (Expense::updateExpenseCategory($name, $id)) {
+				$limit = $_POST['limit'];
+				if (Expense::updateExpenseCategory($name, $id, $limit)) {
 					$error = false;
 				}
 				break;

@@ -1,0 +1,174 @@
+{% extends "base2.html" %}
+
+{% block title %}Add Expense{% endblock %}
+
+{% block body %}
+
+	<div class="container p-3 bg-light rounded shadow-custom">
+	
+		<div class="col">
+			
+			<h2>Dodawanie wydatku<hr></hr></h2>
+			
+			<b> Informacja o limicie: </b> <span id="limit"> </span>
+			<div id="alert-limit"> </div>
+			<form id="expense-form" method="post" action="/profile/addExpense">
+				
+				<label class="mb-0 mt-2" for="amount"><b> Kwota </b></label>
+				<input class="form-control" type="text" id="amount" name="amount" step="0.01"
+					value="{{ expense.amount }}" />
+				
+				{% if expense.errors['error_amount'] %}
+					<div class="error">
+						{{ expense.errors['error_amount'] }}
+					</div>
+				{% endif %}
+					
+				<label class="mb-0 mt-2" for="date"><b> Data </b></label>
+				<input class="form-control" type="text" id="date" name="date"
+					value="{{ date }}" />
+				{% if expense.errors['error_date'] %}
+					<div class="error">
+						{{ expense.errors['error_date'] }}
+					</div>
+				{% endif %}
+
+				<label class="mb-0 mt-2" for="payment_category"><b> Metoda płatności </b></label>
+				
+				<select class="form-control pl-2" id="payment_category" name="payment_category">
+					{% for payment in payments %}
+						<option value="{{ payment['id'] }}"
+							{% if expense.payment_category == payment['id'] %} selected {% endif %} />
+							{{ payment['name'] }}
+						</option>
+					{% endfor %}
+				</select>
+				
+				{% if expense.errors['error_payment'] %}
+					<div class="error">
+						{{ expense.errors['error_payment'] }}
+					</div>
+				{% endif %}
+
+				<label class="mb-0 mt-2"><b> Kategoria </b></label>
+				
+				{% for exp in expenses %}
+					<div class="form-check">
+						<label class="col-form-label">
+							<input type="radio" name="category"  value="{{ exp['id'] }}|{{ exp['name'] }}|{{ exp['category_limit'] }}"
+								{% if expense.category == exp['id'] %} checked {% endif %} />
+								{{ exp['name'] }}
+							{% if exp['category_limit'] > 0 %}
+								<div class="ml-3 font-weight-light"> Limit: {{ exp['category_limit'] }} </div>
+							{% endif %}
+						</label>
+					</div>		
+				{% endfor %}	
+
+				{% if expense.errors['error_radio'] %}
+					<div class="error">
+						{{ expense.errors['error_radio'] }}
+					</div>
+				{% endif %}
+								
+				<div class="form-group">
+					<label class="mb-0 mt-2" for="comment"><b> Komentarz </b></label>
+					<textarea class="form-control" id="comment" name="comment">{{ expense.comment }}</textarea>
+				</div> 
+						
+				<div class="row m-0">
+					<input type="submit" class="col btn btn-info" value="Dodaj" />
+					<input type="reset" class="col ml-2 btn btn-danger" value="Wyczyść" />
+				
+			</form>	
+		</div>
+	</div>
+	<script>
+	
+	$('#amount').keyup(function () {
+		limit();
+	});
+	$('#date, input[name = "category"]').change(function () {
+		limit();
+	});
+
+	function limit() {
+		
+		var inputs = $('#expense-form').serializeArray();
+
+		if (!(inputs[3].name == 'category')) {
+			$('#limit').text('nie wybrano żadnej kategorii');
+			return;
+		} else {
+			showLimitInfo(inputs);
+		}
+	}
+	
+	function showLimitInfo(inputData) {
+		
+		getExpense(inputData);
+	}
+	
+	function getExpense(inputData){
+		var dataAsText = inputData[3].value;
+		var value = inputData[0].value;
+		var dataAsValue = dataAsText.split('|');
+		var date = inputData[1].value;
+		var id = dataAsValue[0];
+		var name = dataAsValue[1];
+		var limit = dataAsValue[2];
+		
+		$.post('/Profile/getExpenseByIdAndDate', {
+			id: id, date: date
+		}, function (data) {
+			data = JSON.parse(data);
+			if (data) {
+				var moneySpent = Math.abs(data.amount);
+				showInfo(limit, moneySpent, name, value);
+			} else {
+				$('#limit').text('Invalid date!');
+				$('#alert-limit').html('');
+			}
+		});
+	}
+	
+	function showInfo(limit, moneySpent, name, value) {
+		if (limit == 0) {
+			$('#alert-limit').html('');
+			$('#limit').html('Nie ustalono limitu dla kategorii <b>' + name + '</b>');
+			$('#alert-limit').html('<div class="alert alert-info"> Możesz wydawać ile chcesz! </div>');
+			return;
+		} else {
+			$('#limit').html('Ustalony limit dla kategorii <b>' + name + '</b> to <b>' + limit + ' zł</b>');
+			limitAlert(limit, moneySpent, value);
+		}
+	}
+	
+	function limitAlert(limit, moneySpent, value) {
+		if ((value == '') || (checkValue(value))) {
+			value = Math.abs(value);
+			value = parseFloat(value);
+			var allSpent = value + moneySpent;
+			
+			if (allSpent > limit) {
+				$('#alert-limit').html('<div class="alert alert-danger"> Do tej pory wydano <b>' + moneySpent.toFixed(2) + ' zł </b> <br/> Wpisana kwota to <b>' + value + ' zł </b> <br/> Przekraczasz limit o <b>' + (allSpent - limit).toFixed(2) + ' zł </b> </div>');
+			} else {
+				$('#alert-limit').html('<div class="alert alert-success"> Do tej pory wydano <b>' + moneySpent.toFixed(2) + ' zł </b> <br/> Wpisana kwota to <b>' + value + ' zł </b> <br/> Możesz jeszcze wydać <b>' + (limit - allSpent).toFixed(2) + ' zł </b> </div>');
+			}
+		} else {
+			$('#limit').text('Invalid amount!');
+			$('#alert-limit').html('');
+		}
+	}
+	
+	function checkValue(value) {
+		value = value.replace(",", ".");
+		if (! value.match(/^[0-9]+(\.[0-9]{1,2}){0,1}$/)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	</script>
+{% endblock %}

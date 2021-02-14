@@ -65,6 +65,8 @@ class Category
 			data = JSON.parse(data);
 			var id;
 			var name;
+			var limit;
+			var limitDiv;
 			var text = 
 			`<div class="row mx-0"> 
 				<div class="col btn btn-info p-0" onclick="` + thisObject.formName + `.edit()"> Edytuj </div>
@@ -78,7 +80,7 @@ class Category
 				
 				id = data[category]['id'];
 				name = data[category]['name'];
-				
+	
 				if (name == 'Another') {
 					continue;
 				}
@@ -89,7 +91,7 @@ class Category
 				`<div class="form-check">
 					<label class="col-form-label" >
 						<input type="radio" name="category" value="` + dataAsText + `" /> ` +
-						name +
+						name + 
 					`</label>
 				</div>`;
 					
