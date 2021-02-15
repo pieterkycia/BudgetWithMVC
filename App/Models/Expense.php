@@ -38,7 +38,7 @@ class Expense extends \Core\Model
 	 */
 	public static function getExpensesCategories()
 	{
-		$sql = 'SELECT id, name 
+		$sql = 'SELECT id, name, category_limit 
 				FROM expenses_category_assigned_to_users 
 				WHERE user_id = :user_id';
 		
@@ -137,8 +137,10 @@ class Expense extends \Core\Model
 	 *
 	 * @retrun boolean. True if update success, false otherwise
 	 */
-	public static function updateExpenseCategory($name, $id)
+	public static function updateExpenseCategory($name, $id, $limit)
 	{
+		static::updateLimit($id, $limit);
+		
 		$savedExpenses = static::getExpensesCategories();
 
 		foreach ($savedExpenses as $key => $value) {
@@ -159,6 +161,26 @@ class Expense extends \Core\Model
 				
 		$stmt->execute();
 		return true;	
+	}
+	
+	/**
+	 * Update limit in database
+	 *
+	 * @retrun boolean. True if update success, false otherwise
+	 */
+	public static function updateLimit($id, $limit)
+	{
+		$sql = 'UPDATE expenses_category_assigned_to_users
+				SET category_limit = :limit
+				WHERE id = :id';
+					
+		$db = static::getDB();
+		$stmt = $db->prepare($sql);
+				
+		$stmt->bindValue(':limit', $limit, PDO::PARAM_STR);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+				
+		$stmt->execute();
 	}
 	
 	/**

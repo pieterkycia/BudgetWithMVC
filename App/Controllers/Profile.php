@@ -90,7 +90,7 @@ class Profile extends Authenticated
 	 */
 	public function expenseFormAction()
 	{
-		View::renderTemplate('Expense/addExpense.html', [
+		View::renderTemplate('Expense/addExpense2.html', [
 			'date' => date('Y-m-d'),
 			'payments' => Payment::getPaymentsCategories(),
 			'expenses' => Expense::getExpensesCategories()
@@ -113,7 +113,7 @@ class Profile extends Authenticated
 		} else {
 			Flash::addMessage('Add expense unsuccessful, please try again!', Flash::WARNING);
 			
-			View::renderTemplate('Expense/addExpense.html', [
+			View::renderTemplate('Expense/addExpense2.html', [
 			'date' => $expense->date,
 			'payments' => Payment::getPaymentsCategories(),
 			'expenses' => Expense::getExpensesCategories(),
@@ -194,5 +194,16 @@ class Profile extends Authenticated
 		echo json_encode($_SESSION['expenses']);
 	}
 	
-	
+	public function getExpenseByIdAndDateAction()
+	{
+		$id = $_POST['id'];
+		$date = $_POST['date'];
+		if (! Date::validateDate($date)) {
+			echo 'false';
+			return;
+		}
+		$startDate = Date::getFirstDayOfGivenDate($date);
+		$endDate = Date::getLastDayOfGivenDate($date);
+		echo json_encode(Balance::getExpenseByIdAndDate($startDate, $endDate, $id));
+	}
 }

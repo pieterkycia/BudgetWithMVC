@@ -194,4 +194,32 @@ class Balance extends \Core\Model
 		}
 	}
 	
+	/**
+	 * Get expense by id for a given period
+	 *
+	 * @param string $startDate. The start date for a given period
+	 * @param string $endDate. The end date for a given period
+	 *
+	 * @retrun array
+	 */
+	public static function getExpenseByIdAndDate($startDate, $endDate, $id)
+	{
+		$sql = 'SELECT SUM(amount) AS amount
+				FROM expenses
+				WHERE expense_category_assigned_to_user_id = :id
+				AND date_of_expense BETWEEN :startDate AND :endDate';
+		
+		$db = static::getDB();
+		
+		$stmt = $db->prepare($sql);
+		
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':startDate', $startDate, PDO::PARAM_STR);
+		$stmt->bindValue(':endDate', $endDate, PDO::PARAM_STR);
+		
+		$stmt->execute();
+		
+		return $stmt->fetch();
+	}
+	
 }

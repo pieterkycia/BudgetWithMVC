@@ -133,4 +133,42 @@ class Date
 		return $date;
 	}
 	
+	/**
+	 * Get first day of given date
+	 *
+	 *@param string $date. Given date
+	 *
+	 * @return string $date. Date with first day of given date
+	 */
+	public static function getFirstDayOfGivenDate($date)
+	{
+		$full_date = explode('-', $date);
+		$year = $full_date[0];
+		$month = $full_date[1];
+		$day = $full_date[2];
+		
+		$dateInSeconds = mktime(0, 0, 0, $month, 1, $year);
+		$date = date('Y-m-d', $dateInSeconds);
+		return $date;
+	}
+	
+	/**
+	 * Get last day of given date
+	 *
+	 *@param string $date. Given date
+	 *
+	 * @return string $date. Date with last day of given date
+	 */
+	public static function getLastDayOfGivenDate($date)
+	{
+		$full_date = explode('-', $date);
+		$year = $full_date[0];
+		$month = $full_date[1];
+		$day = $full_date[2];
+		
+		$dateInSeconds = mktime(0, 0, 0, $month+1, 0, $year);
+		$date = date('Y-m-d', $dateInSeconds);
+		return $date;
+	}
+	
 }
