@@ -9,8 +9,10 @@
 		<div class="col">
 			
 			<h2>Dodawanie wydatku<hr></hr></h2>
-				
-			<form method="post" action="/profile/addExpense">
+			
+			<b> Informacja o limicie: </b> <span id="limit"> </span>
+			<div id="alert-limit"> </div>
+			<form id="expense-form" method="post" action="/profile/addExpense">
 				
 				<label class="mb-0 mt-2" for="amount"><b> Kwota </b></label>
 				<input class="form-control" type="text" id="amount" name="amount" step="0.01"
@@ -23,9 +25,8 @@
 				{% endif %}
 					
 				<label class="mb-0 mt-2" for="date"><b> Data </b></label>
-				<input class="form-control" type="date" id="date" name="date"
+				<input class="form-control" type="text" id="date" name="date"
 					value="{{ date }}" />
-					
 				{% if expense.errors['error_date'] %}
 					<div class="error">
 						{{ expense.errors['error_date'] }}
@@ -34,7 +35,7 @@
 
 				<label class="mb-0 mt-2" for="payment_category"><b> Metoda płatności </b></label>
 				
-				<select class="form-control" id="payment_category" name="payment_category">
+				<select class="form-control pl-2" id="payment_category" name="payment_category">
 					{% for payment in payments %}
 						<option value="{{ payment['id'] }}"
 							{% if expense.payment_category == payment['id'] %} selected {% endif %} />
@@ -54,9 +55,9 @@
 				{% for exp in expenses %}
 					<div class="form-check">
 						<label class="col-form-label">
-							<input type="radio" name="category"  value="{{ exp['id'] }}"
+							<input type="radio" name="category"  value="{{ exp['id'] }}|{{ exp['name'] }}|{{ exp['category_limit'] }}"
 								{% if expense.category == exp['id'] %} checked {% endif %} />
-							{{ exp['name'] }}
+								{{ exp['name'] }}
 							{% if exp['category_limit'] > 0 %}
 								<div class="ml-3 font-weight-light"> Limit: {{ exp['category_limit'] }} </div>
 							{% endif %}
@@ -82,5 +83,6 @@
 			</form>	
 		</div>
 	</div>
+	<script src="/js/limit.js"></script>
 	
 {% endblock %}
