@@ -90,7 +90,7 @@ class Profile extends Authenticated
 	 */
 	public function expenseFormAction()
 	{
-		View::renderTemplate('Expense/addExpense2.html', [
+		View::renderTemplate('Expense/addExpense.html', [
 			'date' => date('Y-m-d'),
 			'payments' => Payment::getPaymentsCategories(),
 			'expenses' => Expense::getExpensesCategories()
@@ -113,7 +113,7 @@ class Profile extends Authenticated
 		} else {
 			Flash::addMessage('Add expense unsuccessful, please try again!', Flash::WARNING);
 			
-			View::renderTemplate('Expense/addExpense2.html', [
+			View::renderTemplate('Expense/addExpense.html', [
 			'date' => $expense->date,
 			'payments' => Payment::getPaymentsCategories(),
 			'expenses' => Expense::getExpensesCategories(),

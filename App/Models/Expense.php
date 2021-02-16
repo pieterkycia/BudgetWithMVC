@@ -135,19 +135,46 @@ class Expense extends \Core\Model
 	/**
 	 * Update expense category in database
 	 *
-	 * @retrun boolean. True if update success, false otherwise
+	 * @return string
 	 */
 	public static function updateExpenseCategory($name, $id, $limit)
 	{
-		static::updateLimit($id, $limit);
+		$limitInfo = true;
+		$nameInfo = true;
 		
+		if (!static::updateLimit($id, $limit)) {
+			$limitInfo = false;
+		}
+		
+		if (!static::updateName($id, $name)) {
+			$nameInfo = false;
+		}
+		
+		if ($limitInfo == true && $nameInfo == true) {
+			return 'nameAndLimit';
+		} else if ($limitInfo == true) {
+			return 'limit';
+		} else if ($nameInfo == true) {
+			return 'name';
+		} else {
+			return 'false';
+		}
+	}
+	
+	/**
+	 * Update name in database
+	 *
+	 * @retrun boolean. True if update success, false otherwise
+	 */
+	public static function updateName($id, $name)
+	{
 		$savedExpenses = static::getExpensesCategories();
 
 		foreach ($savedExpenses as $key => $value) {
 
 			if ($value['name'] == $name) {
 				return false;
-			} 
+			} 	
 		}
 		$sql = 'UPDATE expenses_category_assigned_to_users
 				SET name = :name
@@ -159,8 +186,7 @@ class Expense extends \Core\Model
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 				
-		$stmt->execute();
-		return true;	
+		return $stmt->execute();
 	}
 	
 	/**
@@ -170,6 +196,15 @@ class Expense extends \Core\Model
 	 */
 	public static function updateLimit($id, $limit)
 	{
+		$savedExpenses = static::getExpensesCategories();
+
+		foreach ($savedExpenses as $key => $value) {
+
+			if ($value['id'] == $id && $value['category_limit'] == $limit) {
+				return false;
+			} 
+		}
+		
 		$sql = 'UPDATE expenses_category_assigned_to_users
 				SET category_limit = :limit
 				WHERE id = :id';
@@ -180,7 +215,7 @@ class Expense extends \Core\Model
 		$stmt->bindValue(':limit', $limit, PDO::PARAM_STR);
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 				
-		$stmt->execute();
+		return $stmt->execute();
 	}
 	
 	/**
@@ -198,13 +233,14 @@ class Expense extends \Core\Model
 			} 
 		}
 		$sql = 'INSERT INTO expenses_category_assigned_to_users
-				VALUES (NULL, :user_id, :category_name)';
+				VALUES (NULL, :user_id, :category_name, :category_limit)';
 					
 		$db = static::getDB();
 		$stmt = $db->prepare($sql);
 				
 		$stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
 		$stmt->bindValue(':category_name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':category_limit', 0, PDO::PARAM_STR);
 
 		return $stmt->execute();	
 	}

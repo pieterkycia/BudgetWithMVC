@@ -95,8 +95,10 @@ class Expense extends Category
 			
 			if (inputs.length == 4) {
 				limit = inputs[3]['value'];
+				if (limit == '') {
+					limit = 0;
+				}
 			}
-			console.log(limit);
 			$('#' + this.modalName).modal('hide');
 			
 			var thisObject = this;
@@ -104,11 +106,17 @@ class Expense extends Category
 			$.post('/Settings/updateCategory', {
 				name: name, id: id, limit: limit, type: thisObject.formName
 			}, function(data) {
-				if (data == 'true') {
+				if (data == 'nameAndLimit') {
+					Category.showInfoModal('Edycja kategorii', 'Zmieniono nazwę i limit kategorii', 'success');
+					thisObject.get();
+				} else if (data == 'limit') {
+					Category.showInfoModal('Edycja kategorii', 'Zmieniono limit kategorii', 'success');
+					thisObject.get();
+				} else if (data == 'name') {
 					Category.showInfoModal('Edycja kategorii', 'Zmieniono nazwę kategorii', 'success');
 					thisObject.get();
 				} else {
-					Category.showInfoModal('Edycja kategorii', 'Nie zmieniono nazwy kategorii', 'danger');
+					Category.showInfoModal('Edycja kategorii', 'Nie wprowadzono zmian w kategorii', 'danger');
 					thisObject.get();
 				}
 			});
