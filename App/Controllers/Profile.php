@@ -166,6 +166,7 @@ class Profile extends Authenticated
 		]);
 		
 		$_SESSION['expenses'] = $balance->expenses;
+		$_SESSION['incomes'] = $balance->incomes;
 	}
 	
 	/**
@@ -185,9 +186,19 @@ class Profile extends Authenticated
 	}
 	
 	/**
+	 * Get Incomes for chart
+	 *
+	 * @return array
+	 */
+	public function getIncomesAction()
+	{
+		echo json_encode($_SESSION['incomes']);
+	}
+	
+	/**
 	 * Get Expenses for chart
 	 *
-	 * @return array dates
+	 * @return array 
 	 */
 	public function getExpensesAction()
 	{
