@@ -42,44 +42,79 @@
 			
 		$('#selectDate').val(option);
 	});
-		
-	function createChart(chartLabels, chartValues) {
-		new Chart($('#chart'), {
-			type: 'pie',
-			data: {
-				labels: chartLabels,
-				datasets: [{
-					data: chartValues,
-					backgroundColor: [
-						'rgba(255, 99, 132, 0.5)',
-						'rgba(54, 162, 235, 0.5)',
-						'rgba(255, 206, 86, 0.5)',
-						'rgba(75, 192, 192, 0.5)',
-						'rgba(153, 102, 255, 0.5)',
-						'rgba(255, 159, 64, 0.5)'
-					],
-					borderColor: [
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					borderWidth: 1
-				}]
+	
+	var chartBgColor = [
+		'rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'
+	];
+	
+	var chartBorderColor = [
+		'rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'
+	];
+	
+	var incomesChart = new Chart($('#incomes-chart'), {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				backgroundColor: chartBgColor,
+				borderColor: chartBorderColor,
+				borderWidth: 1
+			}]
+		},
+		options: {
+			title: {
+				display: true,
+				text: 'Incomes',
+				fontSize: 20
 			},
-			options: {
-				title: {
-					display: true,
-					text: 'Expenses',
-					fontSize: 20
-				}
-			}
-		});	
-	}
+			legend: {
+				labels: {
+					boxWidth: 12
+				}	
+			},			
+			maintainAspectRatio: false
+		}
+	});	
 		
+	var expensesChart = new Chart($('#expenses-chart'), {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				backgroundColor: chartBgColor,
+				borderColor: chartBorderColor,
+				borderWidth: 1
+			}]
+		},
+		options: {
+			title: {
+				display: true,
+				text: 'Expenses',
+				fontSize: 20
+			},
+			legend: {
+				labels: {
+					boxWidth: 12
+				}	
+			},			
+			maintainAspectRatio: false
+		}
+	});	
+
 	function showChart() {
+		getIncomes();
+		getExpenses();
+	}
+	
+	function updateChart(chart, label, data, canvasId) {
+		
+		chart.data.labels = label;
+		chart.data.datasets[0].data = data;
+		chart.update();
+		
+		var height = chart.legend.height + 200;
+		$('#' + canvasId).css('height', height);
+	}
+	
+	function getExpenses() {
 		$.post('/profile/getExpenses', function(data) {
 			var chartData = JSON.parse(data);
 			var chartLabels = [];
@@ -89,12 +124,30 @@
 				chartLabels.push(chartData[i].name);
 				chartValues.push(chartData[i].amount);
 			}
-			$('#chart').remove();
-			$('#chart-parent').append('<canvas id="chart" width="200" height="80"></canvas>');
+			
 			if (chartData.length <= 0) {
-				chartLabels.push('No expenses');
+				chartLabels.push('No data');
 				chartValues.push('100');
 			}
-			createChart(chartLabels, chartValues);
+			updateChart(expensesChart, chartLabels, chartValues, 'expenses-parent-chart');
+		});
+	}
+	
+	function getIncomes() {
+		$.post('/profile/getIncomes', function(data) {
+			var chartData = JSON.parse(data);
+			var chartLabels = [];
+			var chartValues = [];
+				
+			for (i in chartData) {
+				chartLabels.push(chartData[i].name);
+				chartValues.push(chartData[i].amount);
+			}
+			
+			if (chartData.length <= 0) {
+				chartLabels.push('No data');
+				chartValues.push('100');
+			}
+			updateChart(incomesChart, chartLabels, chartValues, 'incomes-parent-chart');
 		});
 	}

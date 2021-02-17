@@ -19,7 +19,7 @@ class Signup extends \Core\Controller
     public function newAction()
     {
 		if (isset($_SESSION['user_id'])) {
-			$this->redirect('/profile/menu');
+			$this->redirect('/profile/showBalance');
 		} else {
 			View::renderTemplate('Signup/new.html');
 		}
