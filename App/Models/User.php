@@ -153,8 +153,13 @@ class User extends \Core\Model
 		$stmt->execute();
 		$categories = $stmt->fetchAll();
 		
-		$sql = 'INSERT INTO ' . $categoryType . '_assigned_to_users 
+		if ($categoryType == 'expenses_category') {
+			$sql = 'INSERT INTO ' . $categoryType . '_assigned_to_users 
+				VALUES (NULL, :user_id, :category, 0)';
+		} else {
+			$sql = 'INSERT INTO ' . $categoryType . '_assigned_to_users 
 				VALUES (NULL, :user_id, :category)';
+		}
 		
 		foreach ($categories as $category) {
 			$stmt = $db->prepare($sql);
