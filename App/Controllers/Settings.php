@@ -29,7 +29,7 @@ class Settings extends Authenticated
 	 *
 	 * @return array. The array of categories
 	 */
-	public static function getCategories()
+	public static function getCategoriesAction()
 	{
 		$type = $_POST['type'];
 		switch ($type) {
@@ -52,7 +52,7 @@ class Settings extends Authenticated
 	 *
 	 * @return bolean. True if update success, false otherwise
 	 */
-	public static function updateCategory()
+	public static function updateCategoryAction()
 	{
 		$name = ucwords(strtolower($_POST['name']));
 		$id = $_POST['id'];
@@ -93,7 +93,7 @@ class Settings extends Authenticated
 	 *
 	 * @return bolean. True if remove success, false otherwise
 	 */
-	public static function removeCategory()
+	public static function removeCategoryAction()
 	{
 		$id = $_POST['id'];
 		$type = $_POST['type'];
@@ -130,7 +130,7 @@ class Settings extends Authenticated
 	 *
 	 * @return bolean. True if add success, false otherwise
 	 */
-	public static function addCategory()
+	public static function addCategoryAction()
 	{
 		$name = ucwords(strtolower($_POST['name']));
 		$type = $_POST['type'];
@@ -169,7 +169,7 @@ class Settings extends Authenticated
 	 *
 	 * @return array
 	 */
-	public static function getUserData()
+	public static function getUserDataAction()
 	{
 		echo json_encode(User::findById($_SESSION['user_id']));
 	}
@@ -179,7 +179,7 @@ class Settings extends Authenticated
 	 *
 	 * @return boolean. True if edit name success, false otherwise
 	 */
-	public static function editUserName()
+	public static function editUserNameAction()
 	{
 		$name = ucwords(strtolower($_POST['name']));
 		
@@ -199,7 +199,7 @@ class Settings extends Authenticated
 	 *
 	 * @return boolean. True if edit email success, false otherwise
 	 */
-	public static function editUserEmail()
+	public static function editUserEmailAction()
 	{
 		$email = $_POST['email'];
 		
@@ -219,7 +219,7 @@ class Settings extends Authenticated
 	 *
 	 * @return boolean. True if edit password success, false otherwise
 	 */
-	public static function editUserPassword()
+	public static function editUserPasswordAction()
 	{
 		$password = $_POST['password'];
 		

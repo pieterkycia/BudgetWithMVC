@@ -170,22 +170,6 @@ class Profile extends Authenticated
 	}
 	
 	/**
-	 * Check dates for custom period
-	 *
-	 * @retrun boolean. True if dates are correct, false otherwise
-	 */
-	public function checkDatesAction()
-	{
-		$startDate = $_POST['startDate'];
-		$endDate = $_POST['endDate'];
-		if (Date::validateDate($startDate) && Date::validateDate($endDate) && $startDate <= $endDate) {
-			echo 'true';
-		} else {
-			echo 'false';
-		}
-	}
-	
-	/**
 	 * Get Incomes for chart
 	 *
 	 * @return array
